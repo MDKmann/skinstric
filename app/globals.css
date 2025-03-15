@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
 @theme {
+  /* CUSTOM TAILWIND COLORS PER FIGMA FILE */
+  --color-lotion: #FCFCFC;
   --color-eerie: #1A1B1C;
+  --color-quicksilver: #A0A4AB;
+  /* CUSTOM TEXT STYLING PER FIGMA FILE */
+  --tracking-tightest: -.75rem;
+  --line-height-tight: .9375;
+}
+
+@layer components {
+  .header {
+    letter-spacing: var(--tracking-tightest);
+    font-size: var(--text-9xl);
+    line-height: var(--line-height-tight);
+    font-weight: 350;
+  }
 }
