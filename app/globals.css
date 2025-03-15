@@ -11,7 +11,7 @@
 }
 
 @layer components {
-  .header {
+  .heading {
     letter-spacing: var(--tracking-tightest);
     font-size: var(--text-9xl);
     line-height: var(--line-height-tight);
