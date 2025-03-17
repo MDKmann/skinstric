@@ -1,11 +1,13 @@
 
 export default function Home() {
   return (
-   <main className="w-full h-full text-eerie">
-    <h1 className="flex justify-center items-center heading text-center">
+   <main className=" text-eerie grow shrink basis-auto  ">
+    <div className="page wrapper">
+    <h1 className=" heading text-center place-items-center">
       Sophisticated
        <br/> 
        skincare</h1>
+    </div>
    </main>
   );
 }

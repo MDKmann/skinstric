@@ -1,16 +1,111 @@
 @import "tailwindcss";
 
+/* CSS RESET */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+/* Sets Default Title Balance */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* Improve Text Readability via Line Length */
+p,
+li,
+figcaption {
+  text-wrap: pretty;
+  max-width: 65ch;
+}
+
+input, textarea, button, select {
+  font: inherit;
+}
+
+img {
+  /* Prevent Overflow */
+  max-width: 100%;
+  /* Height: auto Retains Aspect Ratio */
+  height: auto;
+  /* Vertical-align: middle > display: block; */
+  vertical-align: middle;
+  /* Italic for alt tags for screen reader, SEO, broken-image */
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Default Shape Margin for Img Floating */
+  shape-margin: .75rem;
+
+}
+
+
+/* html,
+body,
+main,
+body > div:first-child,
+div#__next,
+div#__next > div {
+  height: 100%;
+} */
+
 @theme {
   /* CUSTOM TAILWIND COLORS PER FIGMA FILE */
-  --color-lotion: #FCFCFC;
-  --color-eerie: #1A1B1C;
-  --color-quicksilver: #A0A4AB;
+  --color-lotion: #fcfcfc;
+  --color-eerie: #1a1b1c;
+  --color-quicksilver: #a0a4ab;
   /* CUSTOM TEXT STYLING PER FIGMA FILE */
-  --tracking-tightest: -.75rem;
-  --line-height-tight: .9375;
+  --tracking-tightest: -0.75rem;
+  --line-height-tight: 0.9375;
+  /* CUSTOM PADDING & MARGINS PER FIGMA FILE */
+  --site-max-width: 2560px;
+  --gutter-nano: 0.5rem;
+  --gutter-micro: 1rem;
+  --gutter-x-small: 1.5rem;
+  --gutter-small: 2rem;
+  --gutter-medium: 2.25rem;
+  --gutter-large: 3rem;
+  --gutter-x-large: 6rem;
+  --gutter-huge: 12rem;
 }
 
 @layer components {
+  .index-page {
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    overflow: clip;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  .page {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    height: 100dvh;
+    margin-bottom: var(--gutter-medium);
+    position: relative;
+  }
+
+  .wrapper {
+    display: block;
+    margin-inline: auto;
+    max-width: var(--site-max-width);
+    padding-inline: var(--gutter-small);
+    width: 100%;
+  }
+
   .heading {
     letter-spacing: var(--tracking-tightest);
     font-size: var(--text-9xl);
