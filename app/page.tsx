@@ -1,16 +1,34 @@
+"use client";
+
 import Image from "next/image";
 import arrowIcon from "../public/button-icon-shrunk.svg";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
 
 export default function Home() {
+  useGSAP(() => {
+    gsap.to(".heading span", {
+      y: "0%",
+      duration: 1,
+      stagger: 0.5,
+      ease: 'power4.out',
+      delay: .25,
+    });
+  }, []);
+
   return (
     <main className=" text-eerie flex grow shrink basis-auto  ">
       <div className="page wrapper">
         <div className="index-content page">
-          <div className="m-auto row-span-2">
-            <h1 className=" heading text-center ">
-              Sophisticated
-              <br />
-              skincare
+          <div id="hero__title--wrapper" className="m-auto row-span-2">
+            <h1 id="hero__title" className=" heading text-center">
+              <span>
+                Sophisticated
+                <br />
+                skincare
+              </span>
             </h1>
           </div>
           <div className="row-span-3 flex items-end">
