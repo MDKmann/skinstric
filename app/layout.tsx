@@ -1,19 +1,33 @@
 import type { Metadata } from "next";
-import { Work_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
 
-const workSans = Work_Sans({
-  variable: "--font-work-sans",
-  subsets: ["latin"],
-  display: 'swap',
-  fallback: ['sans-serif', 'system-ui']
-});
+const roobert = localFont({
+  src: [
+    {
+      path: "../public/fonts/RoobertTRIAL-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/RoobertTRIAL-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
 
+    {
+      path: "../public/fonts/RoobertTRIAL-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+  ],
+});
 
 export const metadata: Metadata = {
   title: "Skinstric | Sophisticated Skincare",
-  description: "Skinstric is a technologically sophisticated website that specializes in creating customized skincare products uing artifical intelligence",
+  description:
+    "Skinstric is a technologically sophisticated website that specializes in creating customized skincare products uing artifical intelligence",
 };
 
 export default function RootLayout({
@@ -22,12 +36,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={workSans.className}>
-     
-      <body
-        className={`${workSans.variable} antialiased index-page`}
-      >
-         <Header />
+    <html lang="en" className={roobert.className}>
+      <body className={`antialiased index-page`}>
+        <Header />
         {children}
       </body>
     </html>
