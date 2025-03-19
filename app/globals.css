@@ -1,20 +1,226 @@
 @import "tailwindcss";
 
+/* CSS RESET */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+/* Sets Default Title Balance */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* Improve Text Readability via Line Length */
+p,
+li,
+figcaption {
+  text-wrap: pretty;
+  max-width: 65ch;
+}
+
+img {
+  /* Prevent Overflow */
+  max-width: 100%;
+  /* Height: auto Retains Aspect Ratio */
+  height: auto;
+  /* Vertical-align: middle > display: block; */
+  vertical-align: middle;
+  /* Italic for alt tags for screen reader, SEO, broken-image */
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Default Shape Margin for Img Floating */
+  shape-margin: 0.75rem;
+}
+
+/* html,
+body,
+main,
+body > div:first-child,
+div#__next,
+div#__next > div {
+  height: 100%;
+} */
+
 @theme {
   /* CUSTOM TAILWIND COLORS PER FIGMA FILE */
-  --color-lotion: #FCFCFC;
-  --color-eerie: #1A1B1C;
-  --color-quicksilver: #A0A4AB;
+  --color-lotion: #fcfcfc;
+  --color-eerie: #1a1b1c;
+  --color-quicksilver: #a0a4ab;
   /* CUSTOM TEXT STYLING PER FIGMA FILE */
-  --tracking-tightest: -.75rem;
-  --line-height-tight: .9375;
+  --tracking-tightest: -0.07em;
+  --spacing-tight: 0.9375;
+  --spacing-roomy: 1.72;
+  --text-micro: 0.625rem;
+  /* CUSTOM PADDING & MARGINS PER FIGMA FILE */
+
+  --spacing-small: 2rem;
+  --spacing-medium: 2.25rem;
 }
 
 @layer components {
+  .index-page {
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    overflow: clip;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  .index-content {
+    /* display: contents; */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
+
+  .page {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    height: 100vh;
+    padding-bottom: var(--spacing-medium);
+    /* position: relative; */
+  }
+
+  .wrapper {
+    display: block;
+    margin-inline: auto;
+    max-width: var(--site-max-width);
+    padding-inline: var(--spacing-small);
+    width: 100%;
+    place-content: center;
+  }
+
   .heading {
+    grid-row-start: 2;
     letter-spacing: var(--tracking-tightest);
     font-size: var(--text-9xl);
-    line-height: var(--line-height-tight);
-    font-weight: 350;
+    line-height: var(--spacing-tight);
+    font-weight: 300;
+  }
+
+  .index-dotted-square {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    will-change: transform;
+  }
+  .index-left {
+    left: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .index-right {
+    right: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .dotted-square {
+    --size: 200px;
+    --base-transform: translate(0);
+    --base-rotation: 45deg;
+    --transition-duration: 0.3s;
+    border: 2px dotted var(--color-quicksilver);
+    display: block;
+    height: var(--size);
+    position: relative;
+    transform: rotate(var(--base-rotation));
+    width: var(--size);
+    will-change: transform;
+  }
+
+  .solid-square {
+    --size: 44px;
+    --base-transform: translate(0);
+    --base-rotation: 45deg;
+    --transition-duration: 0.3s;
+    border: none;
+    display: block;
+    height: var(--size);
+    position: relative;
+    transform: rotate(var(--base-rotation));
+    width: var(--size);
+    will-change: transform;
+  }
+
+  .index-left .dotted-square {
+    /* left: 0; */
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  .index-right .dotted-square {
+    /* right: 0; */
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .index-dotted-square .dotted-square {
+    --size: 23.43vw;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+  }
+
+  .index-left .dotted-square__item {
+    margin-left: var(--gutter-small);
+  }
+
+  .index-left svg {
+    transform: rotate(-45deg) translate(-1px);
+  }
+
+  .index-right .dotted-square__item {
+    margin-right: var(--gutter-small);
+  }
+
+  .index-right svg {
+    transform: rotate(135deg) translate(-1px);
+  }
+
+  .icon-button {
+    --color-default: var(--color-eerie);
+    --color-hover: var(--color-default);
+    --color-active: var(--color-hover);
+    --color-disabled: var(--color-quicksilver);
+    --color: var(--color-default);
+    --outline-color: var(--color-eerie);
+    --text-offset-x: 18px;
+    --text-translate-x: 28px;
+    --icon-size: 44px;
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    flex-shrink: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+
+  .icon-button-size {
+    flex-shrink: 0;
+    height: var(--icon-size);
+    width: var(--icon-size);
   }
 }
