@@ -132,7 +132,7 @@ div#__next > div {
     font-weight: 300;
   }
 
-  #hero__title--wrapper h1{
+  #hero__title--wrapper h1 {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
@@ -186,6 +186,25 @@ div#__next > div {
     will-change: transform;
   }
 
+  .dotted-square::before {
+    content: "";
+    border: inherit;
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    transform: scale(1.13);
+    opacity: 0.6;
+  }
+  .dotted-square::after {
+    content: "";
+    border: inherit;
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    transform: scale(1.27);
+    opacity: 0.3;
+  }
+
   .solid-square {
     --size: 44px;
     --base-transform: translate(0);
@@ -199,6 +218,17 @@ div#__next > div {
     width: var(--size);
     will-change: transform;
   }
+
+  .solid-square::after {
+    content: "";
+    border: 2px dotted var(--color-quicksilver);
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    opacity: 1;
+    
+  }
+
 
   .index-left .dotted-square {
     /* left: 0; */
