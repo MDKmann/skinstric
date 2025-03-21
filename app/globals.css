@@ -210,7 +210,6 @@ div#__next > div {
     --base-transform: translate(0);
     --base-rotation: 45deg;
     --transition-duration: 0.3s;
-    border: none;
     display: block;
     height: var(--size);
     position: relative;
@@ -226,18 +225,30 @@ div#__next > div {
     width: inherit;
     position: absolute;
     opacity: 1;
-    
   }
-  .solid-square::after {
+
+  .left-button:hover .solid-square::after {
     content: "";
-    border: 2px dotted var(--color-quicksilver);
+    border: 1px dotted var(--color-quicksilver);
+    transform: scale(1.37);
     height: inherit;
     width: inherit;
     position: absolute;
     opacity: 1;
-    
   }
 
+  .left-button:hover {
+    transform: translateX(10%);
+  }
+
+  .left-button:hover .solid-square::before{
+     transform: scale(1.78);
+      border: 1px solid var(--color-quicksilver);
+  }
+
+  .left-button:hover .left-button-label {
+    margin-left: 2rem;
+  }
 
   .index-left .dotted-square {
     /* left: 0; */
