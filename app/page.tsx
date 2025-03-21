@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import arrowIcon from "../public/button-icon-shrunk.svg";
+import leftArrowIcon from "../public/leftPolygon.png";
+import rightArrowIcon from "../public/rightPolygon.png";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -44,11 +45,11 @@ export default function Home() {
           <div className="pl-small">
             <a href="" className="">
               <span className="icon-button solid-square align-middle ">
-                <span className="icon-button icon-button-size m-auto">
+                <span className="icon-button icon-button-size m-auto flex items-center justify-center">
                   <Image
-                    src={arrowIcon}
+                    src={leftArrowIcon}
                     alt="Discover a.i. arrow icon"
-                    className="rotate-315"
+                    className="rotate-195"
                     style={{
                       maxWidth: "100%",
                       height: "auto",
@@ -69,11 +70,11 @@ export default function Home() {
               <a href="" className="">
                 <span className="pr-4 text-sm font-semibold">TAKE TEST</span>
                 <span className="icon-button solid-square align-middle ">
-                  <span className="icon-button icon-button-size m-auto">
+                  <span className="icon-button icon-button-size m-auto flex items-center justify-center">
                     <Image
-                      src={arrowIcon}
+                      src={rightArrowIcon}
                       alt="Take test arrow icon"
-                      className="rotate-135"
+                      className="rotate-75"
                       style={{
                         maxWidth: "100%",
                         height: "auto",

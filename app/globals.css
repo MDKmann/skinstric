@@ -219,6 +219,15 @@ div#__next > div {
     will-change: transform;
   }
 
+  .solid-square::before {
+    content: "";
+    border: 2px solid var(--color-quicksilver);
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    opacity: 1;
+    
+  }
   .solid-square::after {
     content: "";
     border: 2px dotted var(--color-quicksilver);
