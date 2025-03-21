@@ -186,7 +186,7 @@ div#__next > div {
     will-change: transform;
   }
 
-  .dotted-square::before {
+  .left-button:hover ~ .dotted-square::before {
     content: "";
     border: inherit;
     height: inherit;
@@ -195,7 +195,7 @@ div#__next > div {
     transform: scale(1.13);
     opacity: 0.6;
   }
-  .dotted-square::after {
+  .left-button:hover ~ .dotted-square::after {
     content: "";
     border: inherit;
     height: inherit;

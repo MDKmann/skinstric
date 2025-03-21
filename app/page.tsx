@@ -41,7 +41,6 @@ export default function Home() {
         </div>
 
         <div className="index-dotted-square index-left">
-          <span className="dotted-square"></span>
           <div className="pl-small left-button">
             <a href="" className="cursor-pointer left-icon">
               <span className="icon-button solid-square align-middle ">
@@ -62,6 +61,7 @@ export default function Home() {
               </span>
             </a>
           </div>
+          <span className="dotted-square"></span>
         </div>
 
         <div className="index-dotted-square index-right g">
