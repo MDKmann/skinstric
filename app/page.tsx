@@ -5,18 +5,89 @@ import leftArrowIcon from "../public/leftPolygon.png";
 import rightArrowIcon from "../public/rightPolygon.png";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { Flip } from "gsap/Flip";
+import { useEffect, useRef } from "react";
 
-gsap.registerPlugin(useGSAP);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(useGSAP);
+}
+
+gsap.registerPlugin(Flip);
 
 export default function Home() {
+  const leftButtonRef = useRef<HTMLInputElement>(null);
+  const headingStyle = {
+    textAlign: "center" as const,
+  };
+
   useGSAP(() => {
     gsap.to(".heading span", {
       y: "0%",
       duration: 1,
       stagger: 0.5,
-      ease: 'power4.out',
-      delay: .25,
+      ease: "power4.out",
+      delay: 0.25,
     });
+  }, []);
+
+  useEffect(() => {
+    leftButtonRef.current = document.querySelector(".left-button");
+    const heroTitle = document.querySelector("#hero__title");
+    // const state = Flip.getState(heroTitle, { props: "textAlign" });
+
+    leftButtonRef.current?.addEventListener("mouseenter", () => {
+      const state = Flip.getState(heroTitle)
+      if (heroTitle instanceof HTMLElement) {
+        heroTitle.style.textAlign = 'end';
+        Flip.from(state, {
+          duration: 1,
+          ease:"power1.out",
+          x: 100,
+        });
+      }
+    });
+
+    leftButtonRef.current?.addEventListener("mouseleave", () => {
+           const state = Flip.getState(heroTitle);
+      if (heroTitle instanceof HTMLElement) {
+        heroTitle.style.textAlign = "center";
+        Flip.from(state, {
+          duration: 1,
+          ease:"power1.out",
+          x: 0,
+        });
+      }
+    });
+    // leftButtonRef.current?.addEventListener("mouseenter", () => {
+    //   gsap.fromTo(
+    //     "#hero__title",
+    //     {
+    //       textAlign: "center",
+    //       ease: "power1.inOut",
+    //       duration: 1,
+    //     },
+    //     {
+    //       textAlign: "end",
+    //       ease: "power1.inOut",
+    //       duration: 1,
+    //     }
+    //   );
+    // });
+    // leftButtonRef?.current?.addEventListener("mouseleave", () => {
+    //   gsap.fromTo(
+    //     "#hero__title",
+    //     {
+    //       textAlign: "end",
+    //       ease: "power1.inOut",
+    //       duration: 0.5,
+    //     },
+    //     {
+    //       textAlign: "center",
+    //       ease: "power1.inOut",
+    //       duration: 0.5,
+    //     }
+    //   );
+    // });
   }, []);
 
   return (
@@ -24,7 +95,7 @@ export default function Home() {
       <div className="page wrapper">
         <div className="index-content page">
           <div id="hero__title--wrapper" className="m-auto row-span-2">
-            <h1 id="hero__title" className=" heading text-center">
+            <h1 id="hero__title" className=" heading" style={headingStyle}>
               <span>
                 Sophisticated
                 <br />
@@ -63,8 +134,29 @@ export default function Home() {
           </div>
           <span className="dotted-square"></span>
         </div>
+        <div className="index-dotted-square index-right">
+          <div className="pr-small right-button">
+            <a href="" className="cursor-pointer right-icon">
+              <span className="pr-4 text-sm font-semibold right-button-label">TAKE TEST</span>
+              <span className="icon-button solid-square align-middle ">
+                <span className="icon-button icon-button-size m-auto flex items-center justify-center">
+                  <Image
+                    src={rightArrowIcon}
+                    alt="Discover a.i. arrow icon"
+                    className="rotate-75"
+                    style={{
+                      maxWidth: "100%",
+                      height: "auto",
+                    }}
+                  />
+                </span>
+              </span>
+            </a>
+          </div>
+          <span className="dotted-square"></span>
+        </div>
 
-        <div className="index-dotted-square index-right g">
+        {/* <div className="index-dotted-square index-right">
           <div className="dotted-square flex justify-center items-center">
             <div className="pr-48 -rotate-45">
               <a href="" className="cursor-pointer right-icon">
@@ -85,7 +177,7 @@ export default function Home() {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </main>
   );

@@ -125,7 +125,6 @@ div#__next > div {
     display: block;
     transform: translateY(100%);
     width: 100%;
-    text-align: center;
     letter-spacing: var(--tracking-tightest);
     font-size: var(--text-9xl);
     line-height: var(--spacing-tight);
@@ -186,7 +185,8 @@ div#__next > div {
     will-change: transform;
   }
 
-  .left-button:hover ~ .dotted-square::before {
+  .left-button:hover ~ .dotted-square::before,
+  .right-button:hover ~ .dotted-square::before {
     content: "";
     border: inherit;
     height: inherit;
@@ -195,7 +195,8 @@ div#__next > div {
     transform: scale(1.13);
     opacity: 0.6;
   }
-  .left-button:hover ~ .dotted-square::after {
+  .left-button:hover ~ .dotted-square::after,
+  .right-button:hover ~ .dotted-square::after {
     content: "";
     border: inherit;
     height: inherit;
@@ -227,7 +228,8 @@ div#__next > div {
     opacity: 1;
   }
 
-  .left-button:hover .solid-square::after {
+  .left-button:hover .solid-square::after,
+  .right-button:hover .solid-square::after {
     content: "";
     border: 1px dotted var(--color-quicksilver);
     transform: scale(1.37);
@@ -240,23 +242,30 @@ div#__next > div {
   .left-button:hover {
     transform: translateX(10%);
   }
-
-  .left-button:hover .solid-square::before{
-     transform: scale(1.78);
-      border: 1px solid var(--color-quicksilver);
+  .right-button:hover {
+    transform: translateX(-10%);
   }
 
-  .left-button:hover .left-button-label {
-    margin-left: 2rem;
+  .left-button:hover .solid-square::before {
+    transform: scale(1.78);
+    border: 1px solid var(--color-quicksilver);
+  }
+  .right-button:hover .solid-square::before {
+    transform: scale(1.78);
+    border: 1px solid var(--color-quicksilver);
+  }
+
+  .right-button:hover .left-button-label {
+    margin-right: 2rem;
   }
 
   .index-left .dotted-square {
-    /* left: 0; */
+    left: 0;
     transform: translate(-50%, -50%) rotate(45deg);
   }
   .index-right .dotted-square {
-    /* right: 0; */
-    transform: translate(-50%, -50%) rotate(45deg);
+    right: 0;
+    transform: translate(50%, -50%) rotate(45deg);
   }
 
   .index-dotted-square .dotted-square {
