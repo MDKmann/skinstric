@@ -166,7 +166,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="index-dotted-square index-left">
+        <div className="index__square--container index-left">
           <div className="pl-small left-button">
             <a href="" className="cursor-pointer left-icon">
               <span className="icon-button solid-square align-middle ">
@@ -189,7 +189,7 @@ export default function Home() {
           </div>
           <span className="dotted-square"></span>
         </div>
-        <div className="index-dotted-square index-right">
+        <div className="index__square--container  index-right">
           <div className="pr-small right-button">
             <a href="" className="cursor-pointer right-icon">
               <span className="pr-4 text-sm font-semibold right-button-label">
@@ -212,29 +212,6 @@ export default function Home() {
           </div>
           <span className="dotted-square"></span>
         </div>
-
-        {/* <div className="index-dotted-square index-right">
-          <div className="dotted-square flex justify-center items-center">
-            <div className="pr-48 -rotate-45">
-              <a href="" className="cursor-pointer right-icon">
-                <span className="pr-4 text-sm font-semibold">TAKE TEST</span>
-                <span className="icon-button solid-square align-middle ">
-                  <span className="icon-button icon-button-size m-auto flex items-center justify-center">
-                    <Image
-                      src={rightArrowIcon}
-                      alt="Take test arrow icon"
-                      className="rotate-75"
-                      style={{
-                        maxWidth: "100%",
-                        height: "auto",
-                      }}
-                    />
-                  </span>
-                </span>
-              </a>
-            </div>
-          </div>
-        </div> */}
       </div>
     </main>
   );

@@ -75,6 +75,7 @@ div#__next > div {
 }
 
 @layer components {
+  /* Index LandingPage */
   .index-page {
     height: 100%;
     left: 0;
@@ -152,7 +153,7 @@ div#__next > div {
     opacity: 1;
   } */
 
-  .index-dotted-square {
+  .index__square--container {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -254,8 +255,6 @@ div#__next > div {
   }
   .right-button:hover {
     transform: translateX(-10%);
-    
-    
   }
 
   .left-button:hover .solid-square::before {
@@ -294,7 +293,7 @@ div#__next > div {
     transform: translate(50%, -50%) rotate(45deg);
   }
 
-  .index-dotted-square .dotted-square {
+  .index__square--container .dotted-square {
     --size: 23.43vw;
     pointer-events: none;
     position: absolute;
@@ -340,5 +339,29 @@ div#__next > div {
     flex-shrink: 0;
     height: var(--icon-size);
     width: var(--icon-size);
+  }
+
+  /* =====  FORM PAGE */
+  .form__square--container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form__square--container .dotted-square {
+    --size: 23.43vw;
+    pointer-events: none;
+  }
+
+  .form__square--container .dotted-square::before {
+    transform: scale(1.13);
+    opacity: 0.6;
+  }
+  .form__square--container .dotted-square::after {
+    transform: scale(1.27);
+    opacity: 0.3;
   }
 }

@@ -16,7 +16,7 @@ const Header = () => {
         </a>
       </div>
       <div className="flex justify-end ">
-        <button className="uppercase bg-eerie py-2 px-4 text-lotion text-micro font-semibold">
+        <button className="uppercase bg-eerie py-2 px-4 text-lotion text-micro font-semibold code-button">
           Enter Code
         </button>
       </div>
