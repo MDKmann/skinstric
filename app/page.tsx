@@ -1,16 +1,161 @@
+"use client";
+
 import Image from "next/image";
-import arrowIcon from "../public/button-icon-shrunk.svg";
+import leftArrowIcon from "../public/leftPolygon.png";
+import rightArrowIcon from "../public/rightPolygon.png";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Flip } from "gsap/Flip";
+import { useEffect, useRef } from "react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(useGSAP);
+}
+
+gsap.registerPlugin(Flip);
 
 export default function Home() {
+  const leftButtonRef = useRef<HTMLInputElement>(null);
+  const rightButtonRef = useRef<HTMLInputElement>(null);
+
+  const headingStyle = {
+    textAlign: "center" as const,
+  };
+
+  useGSAP(() => {
+    leftButtonRef.current = document.querySelector(".left-button");
+    rightButtonRef.current = document.querySelector(".right-button");
+    const heroTitle = document.querySelector("#hero__title");
+    gsap.to(".heading span", {
+      y: "0%",
+      duration: 1,
+      ease: "power4.out",
+      delay: 0.25,
+    });
+
+    leftButtonRef.current?.addEventListener("mouseenter", () => {
+      if (heroTitle instanceof HTMLElement) {
+        gsap.to(".hero__title--1", {
+          x: "30%",
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".hero__title--2", {
+          x: "37%",
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".index-right", {
+          opacity: 0,
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+      }
+    });
+
+    leftButtonRef.current?.addEventListener("mouseleave", () => {
+      if (heroTitle instanceof HTMLElement) {
+        gsap.to(".hero__title--1, .hero__title--2", {
+          x: "0%",
+          duration: 1,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".index-right", {
+          opacity: 1,
+          duration: 1,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+      }
+    });
+    rightButtonRef.current?.addEventListener("mouseenter", () => {
+      if (heroTitle instanceof HTMLElement) {
+        gsap.to(".hero__title--1", {
+          x: "-30%",
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".hero__title--2", {
+          x: "-37%",
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".index-left", {
+          opacity: 0,
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+      }
+    });
+
+    rightButtonRef.current?.addEventListener("mouseleave", () => {
+      if (heroTitle instanceof HTMLElement) {
+        gsap.to(".hero__title--1, .hero__title--2", {
+          x: "0%",
+          duration: 1,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".index-left", {
+          opacity: 1,
+          duration: 1,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    // const state = Flip.getState(heroTitle, { props: "textAlign" });
+    // leftButtonRef.current?.addEventListener("mouseenter", () => {
+    //   gsap.fromTo(
+    //     "#hero__title",
+    //     {
+    //       textAlign: "center",
+    //       ease: "power1.inOut",
+    //       duration: 1,
+    //     },
+    //     {
+    //       textAlign: "end",
+    //       ease: "power1.inOut",
+    //       duration: 1,
+    //     }
+    //   );
+    // });
+    // leftButtonRef?.current?.addEventListener("mouseleave", () => {
+    //   gsap.fromTo(
+    //     "#hero__title",
+    //     {
+    //       textAlign: "end",
+    //       ease: "power1.inOut",
+    //       duration: 0.5,
+    //     },
+    //     {
+    //       textAlign: "center",
+    //       ease: "power1.inOut",
+    //       duration: 0.5,
+    //     }
+    //   );
+    // });
+  }, []);
+
   return (
     <main className=" text-eerie flex grow shrink basis-auto  ">
       <div className="page wrapper">
         <div className="index-content page">
-          <div className="m-auto row-span-2">
-            <h1 className=" heading text-center ">
-              Sophisticated
+          <div id="hero__title--wrapper" className="m-auto row-span-2">
+            <h1 id="hero__title" className=" heading" style={headingStyle}>
+              <span className="hero__title--1">Sophisticated</span>
               <br />
-              skincare
+              <span className="hero__title--2">skincare</span>
             </h1>
           </div>
           <div className="row-span-3 flex items-end">
@@ -22,15 +167,14 @@ export default function Home() {
         </div>
 
         <div className="index-dotted-square index-left">
-          <span className="dotted-square "></span>
-          <div className="pl-small">
-            <a href="" className="">
+          <div className="pl-small left-button">
+            <a href="" className="cursor-pointer left-icon">
               <span className="icon-button solid-square align-middle ">
-                <span className="icon-button icon-button-size m-auto">
+                <span className="icon-button icon-button-size m-auto flex items-center justify-center">
                   <Image
-                    src={arrowIcon}
+                    src={leftArrowIcon}
                     alt="Discover a.i. arrow icon"
-                    className="rotate-315"
+                    className="rotate-195"
                     style={{
                       maxWidth: "100%",
                       height: "auto",
@@ -38,24 +182,48 @@ export default function Home() {
                   />
                 </span>
               </span>
-              <span className="pl-4 uppercase text-sm font-semibold">
+              <span className="pl-4 uppercase text-sm font-semibold left-button-label">
                 Discover A.I.
               </span>
             </a>
           </div>
+          <span className="dotted-square"></span>
+        </div>
+        <div className="index-dotted-square index-right">
+          <div className="pr-small right-button">
+            <a href="" className="cursor-pointer right-icon">
+              <span className="pr-4 text-sm font-semibold right-button-label">
+                TAKE TEST
+              </span>
+              <span className="icon-button solid-square align-middle ">
+                <span className="icon-button icon-button-size m-auto flex items-center justify-center">
+                  <Image
+                    src={rightArrowIcon}
+                    alt="Discover a.i. arrow icon"
+                    className="rotate-75"
+                    style={{
+                      maxWidth: "100%",
+                      height: "auto",
+                    }}
+                  />
+                </span>
+              </span>
+            </a>
+          </div>
+          <span className="dotted-square"></span>
         </div>
 
-        <div className="index-dotted-square index-right">
+        {/* <div className="index-dotted-square index-right">
           <div className="dotted-square flex justify-center items-center">
             <div className="pr-48 -rotate-45">
-              <a href="" className="">
+              <a href="" className="cursor-pointer right-icon">
                 <span className="pr-4 text-sm font-semibold">TAKE TEST</span>
                 <span className="icon-button solid-square align-middle ">
-                  <span className="icon-button icon-button-size m-auto">
+                  <span className="icon-button icon-button-size m-auto flex items-center justify-center">
                     <Image
-                      src={arrowIcon}
+                      src={rightArrowIcon}
                       alt="Take test arrow icon"
-                      className="rotate-135"
+                      className="rotate-75"
                       style={{
                         maxWidth: "100%",
                         height: "auto",
@@ -66,7 +234,7 @@ export default function Home() {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </main>
   );

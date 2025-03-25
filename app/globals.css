@@ -113,12 +113,44 @@ div#__next > div {
   }
 
   .heading {
-    grid-row-start: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+  }
+
+  .heading span {
+    position: relative;
+    display: block;
+    transform: translateY(250%);
+    width: 100%;
     letter-spacing: var(--tracking-tightest);
     font-size: var(--text-9xl);
     line-height: var(--spacing-tight);
     font-weight: 300;
   }
+
+  #hero__title--wrapper h1 {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  /* #hero-title h1 {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .hero-title span {
+     transform: translateY(100%);
+  } */
+
+  /* .heading {
+    grid-row-start: 2;
+    letter-spacing: var(--tracking-tightest);
+    font-size: var(--text-9xl);
+    line-height: var(--spacing-tight);
+    font-weight: 300;
+    opacity: 1;
+  } */
 
   .index-dotted-square {
     position: absolute;
@@ -152,13 +184,33 @@ div#__next > div {
     width: var(--size);
     will-change: transform;
   }
+  .dotted-square::before,
+  .dotted-square::after {
+    content: "";
+    border: inherit;
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+  }
+
+  .left-button:hover ~ .dotted-square::before,
+  .right-button:hover ~ .dotted-square::before {
+    transform: scale(1.13);
+    opacity: 0.6;
+  }
+  .left-button:hover ~ .dotted-square::after,
+  .right-button:hover ~ .dotted-square::after {
+    transform: scale(1.27);
+    opacity: 0.3;
+  }
 
   .solid-square {
     --size: 44px;
     --base-transform: translate(0);
     --base-rotation: 45deg;
     --transition-duration: 0.3s;
-    border: none;
     display: block;
     height: var(--size);
     position: relative;
@@ -167,13 +219,79 @@ div#__next > div {
     will-change: transform;
   }
 
+  .solid-square::before {
+    content: "";
+    border: 2px solid var(--color-quicksilver);
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    opacity: 1;
+  }
+
+  .solid-square::after,
+  .solid-square::after {
+    content: "";
+    border: 1px dotted var(--color-quicksilver);
+    transform: scale(1.37);
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    opacity: 0;
+  }
+  .left-button:hover .solid-square::after,
+  .right-button:hover .solid-square::after {
+    content: "";
+    border: 1px dotted var(--color-quicksilver);
+    transform: scale(1.37);
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    opacity: 1;
+  }
+
+  .left-button:hover {
+    transform: translateX(10%);
+  }
+  .right-button:hover {
+    transform: translateX(-10%);
+    
+    
+  }
+
+  .left-button:hover .solid-square::before {
+    transform: scale(1.78);
+    border: 1px solid var(--color-quicksilver);
+  }
+  .right-button:hover .solid-square::before {
+    transform: scale(1.78);
+    border: 1px solid var(--color-quicksilver);
+  }
+
+  .left-button-label,
+  .right-button-label {
+    margin-inline: 0rem;
+  }
+  .left-button:hover .left-button-label,
+  .right-button:hover .right-button-label {
+    margin-inline: 2.5rem;
+  }
+
+  .solid-square::before,
+  .solid-square::after,
+  .left-button,
+  .right-button,
+  .left-button-label,
+  .right-button-label {
+    transition: all 1s ease-in-out;
+  }
+
   .index-left .dotted-square {
-    /* left: 0; */
+    left: 0;
     transform: translate(-50%, -50%) rotate(45deg);
   }
   .index-right .dotted-square {
-    /* right: 0; */
-    transform: translate(-50%, -50%) rotate(45deg);
+    right: 0;
+    transform: translate(50%, -50%) rotate(45deg);
   }
 
   .index-dotted-square .dotted-square {
