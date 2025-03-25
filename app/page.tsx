@@ -26,17 +26,23 @@ export default function Home() {
     leftButtonRef.current = document.querySelector(".left-button");
     rightButtonRef.current = document.querySelector(".right-button");
     const heroTitle = document.querySelector("#hero__title");
-    gsap.to(".heading span, #intro-description", {
+    gsap.to(".heading span", {
       y: "0%",
       duration: 1,
       ease: "power4.out",
-      delay: 0.25,
+      delay: .25,
+    });
+    gsap.to("#intro-description", {
+      y: "0%",
+      duration: 1,
+      ease: "power4.out",
+      delay: 1.5,
     });
     gsap.to(".index-left, .index-right", {
       x: "0%",
       duration: 1,
       ease: "power4.out",
-      delay: 0.25,
+      delay: 0.75,
     });
 
     leftButtonRef.current?.addEventListener("mouseenter", () => {

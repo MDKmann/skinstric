@@ -12,7 +12,7 @@ const Header = () => {
       y: "0%",
       duration: 1,
       ease: "power4.out",
-      delay: 0.25,
+      delay: 1.5,
     });
   })
 
