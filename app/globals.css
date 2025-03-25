@@ -152,6 +152,11 @@ div#__next > div {
     opacity: 1;
   } */
 
+  #intro-description {
+    position: absolute;
+    transform: translateY(200%);
+  }
+
   .index-dotted-square {
     position: absolute;
     top: 50%;
@@ -162,13 +167,14 @@ div#__next > div {
     left: 0;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateX(-200%) translateY(-50%);
   }
   .index-right {
     right: 0;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+transform: translateX(200%) translateY(-50%);
+  
   }
 
   .dotted-square {
