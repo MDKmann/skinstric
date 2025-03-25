@@ -26,8 +26,14 @@ export default function Home() {
     leftButtonRef.current = document.querySelector(".left-button");
     rightButtonRef.current = document.querySelector(".right-button");
     const heroTitle = document.querySelector("#hero__title");
-    gsap.to(".heading span", {
+    gsap.to(".heading span, #intro-description", {
       y: "0%",
+      duration: 1,
+      ease: "power4.out",
+      delay: 0.25,
+    });
+    gsap.to(".index-left, .index-right", {
+      x: "0%",
       duration: 1,
       ease: "power4.out",
       delay: 0.25,
@@ -159,7 +165,10 @@ export default function Home() {
             </h1>
           </div>
           <div className="row-span-3 flex items-end">
-            <p className="line-clamp-3 text-wrap w-80 uppercase text-sm leading-roomy">
+            <p
+              id="intro-description"
+              className="line-clamp-3 text-wrap w-80 uppercase text-sm leading-roomy"
+            >
               Skinstric developed an A.I. that creates a highly-personalised
               routine tailored to what your skin needs.
             </p>
@@ -212,29 +221,6 @@ export default function Home() {
           </div>
           <span className="dotted-square"></span>
         </div>
-
-        {/* <div className="index-dotted-square index-right">
-          <div className="dotted-square flex justify-center items-center">
-            <div className="pr-48 -rotate-45">
-              <a href="" className="cursor-pointer right-icon">
-                <span className="pr-4 text-sm font-semibold">TAKE TEST</span>
-                <span className="icon-button solid-square align-middle ">
-                  <span className="icon-button icon-button-size m-auto flex items-center justify-center">
-                    <Image
-                      src={rightArrowIcon}
-                      alt="Take test arrow icon"
-                      className="rotate-75"
-                      style={{
-                        maxWidth: "100%",
-                        height: "auto",
-                      }}
-                    />
-                  </span>
-                </span>
-              </a>
-            </div>
-          </div>
-        </div> */}
       </div>
     </main>
   );
