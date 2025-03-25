@@ -1,10 +1,26 @@
+"use client"
+
 import Image from "next/image";
 import leftHug from "../public/Rectangle 2710.svg";
 import rightHug from "../public/Rectangle 2711.svg";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const Header = () => {
+  useGSAP(() => {
+    gsap.to("#header", {
+      y: "0%",
+      duration: 1,
+      ease: "power4.out",
+      delay: 1.5,
+    });
+  });
+
   return (
-    <header className="w-full h-16 grid grid-cols-2 grid-rows-1 items-center fixed wrapper">
+    <header
+      id="header"
+      className="w-full h-16 grid grid-cols-2 grid-rows-1 items-center fixed wrapper -translate-y-full "
+    >
       <div className="flex">
         <a href="" className="font-semibold text-sm">
           SKINSTRIC

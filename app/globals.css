@@ -65,7 +65,7 @@ div#__next > div {
   --color-quicksilver: #a0a4ab;
   /* CUSTOM TEXT STYLING PER FIGMA FILE */
   --tracking-tightest: -0.07em;
-  --spacing-tight: 0.9375;
+  --spacing-tighter: 0.9375;
   --spacing-roomy: 1.72;
   --text-micro: 0.625rem;
   /* CUSTOM PADDING & MARGINS PER FIGMA FILE */
@@ -136,40 +136,29 @@ div#__next > div {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
-  /* #hero-title h1 {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  #intro-description {
+    position: absolute;
+    transform: translateY(200%);
   }
 
-  .hero-title span {
-     transform: translateY(100%);
-  } */
-
-  /* .heading {
-    grid-row-start: 2;
-    letter-spacing: var(--tracking-tightest);
-    font-size: var(--text-9xl);
-    line-height: var(--spacing-tight);
-    font-weight: 300;
-    opacity: 1;
-  } */
-
-  .index__square--container {
+  .landing__square--container {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     will-change: transform;
   }
+
   .index-left {
     left: 0;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateX(-200%) translateY(-50%);
   }
   .index-right {
     right: 0;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateX(200%) translateY(-50%);
   }
 
   .dotted-square {
@@ -293,7 +282,7 @@ div#__next > div {
     transform: translate(50%, -50%) rotate(45deg);
   }
 
-  .index__square--container .dotted-square {
+  .landing__square--container .dotted-square {
     --size: 23.43vw;
     pointer-events: none;
     position: absolute;
