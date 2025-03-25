@@ -136,7 +136,7 @@ div#__next > div {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
-  #intro-description {
+ #intro-description {
     position: absolute;
     transform: translateY(200%);
   }
@@ -147,8 +147,8 @@ div#__next > div {
     transform: translateY(-50%);
     will-change: transform;
   }
-
-  .index-left {
+  
+ .index-left {
     left: 0;
     position: absolute;
     top: 50%;

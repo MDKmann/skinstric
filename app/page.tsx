@@ -30,7 +30,19 @@ export default function Home() {
       y: "0%",
       duration: 1,
       ease: "power4.out",
-      delay: 0.25,
+      delay: .25,
+    });
+    gsap.to("#intro-description", {
+      y: "0%",
+      duration: 1,
+      ease: "power4.out",
+      delay: 1.5,
+    });
+    gsap.to(".index-left, .index-right", {
+      x: "0%",
+      duration: 1,
+      ease: "power4.out",
+      delay: 0.75,
     });
     gsap.to("#intro-description", {
       y: "0%",
