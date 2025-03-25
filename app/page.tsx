@@ -16,48 +16,105 @@ gsap.registerPlugin(Flip);
 
 export default function Home() {
   const leftButtonRef = useRef<HTMLInputElement>(null);
+  const rightButtonRef = useRef<HTMLInputElement>(null);
+
   const headingStyle = {
     textAlign: "center" as const,
   };
 
   useGSAP(() => {
+    leftButtonRef.current = document.querySelector(".left-button");
+    rightButtonRef.current = document.querySelector(".right-button");
+    const heroTitle = document.querySelector("#hero__title");
     gsap.to(".heading span", {
       y: "0%",
       duration: 1,
-      stagger: 0.5,
       ease: "power4.out",
       delay: 0.25,
     });
-  }, []);
-
-  useEffect(() => {
-    leftButtonRef.current = document.querySelector(".left-button");
-    const heroTitle = document.querySelector("#hero__title");
-    // const state = Flip.getState(heroTitle, { props: "textAlign" });
 
     leftButtonRef.current?.addEventListener("mouseenter", () => {
-      const state = Flip.getState(heroTitle)
       if (heroTitle instanceof HTMLElement) {
-        heroTitle.style.textAlign = 'end';
-        Flip.from(state, {
-          duration: 1,
-          ease:"power1.out",
-          x: 100,
+        gsap.to(".hero__title--1", {
+          x: "30%",
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".hero__title--2", {
+          x: "37%",
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".index-right", {
+          opacity: 0,
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
         });
       }
     });
 
     leftButtonRef.current?.addEventListener("mouseleave", () => {
-           const state = Flip.getState(heroTitle);
       if (heroTitle instanceof HTMLElement) {
-        heroTitle.style.textAlign = "center";
-        Flip.from(state, {
+        gsap.to(".hero__title--1, .hero__title--2", {
+          x: "0%",
           duration: 1,
-          ease:"power1.out",
-          x: 0,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".index-right", {
+          opacity: 1,
+          duration: 1,
+          ease: "power4.out",
+          delay: 0.25,
         });
       }
     });
+    rightButtonRef.current?.addEventListener("mouseenter", () => {
+      if (heroTitle instanceof HTMLElement) {
+        gsap.to(".hero__title--1", {
+          x: "-30%",
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".hero__title--2", {
+          x: "-37%",
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".index-left", {
+          opacity: 0,
+          duration: 2,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+      }
+    });
+
+    rightButtonRef.current?.addEventListener("mouseleave", () => {
+      if (heroTitle instanceof HTMLElement) {
+        gsap.to(".hero__title--1, .hero__title--2", {
+          x: "0%",
+          duration: 1,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+        gsap.to(".index-left", {
+          opacity: 1,
+          duration: 1,
+          ease: "power4.out",
+          delay: 0.25,
+        });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    // const state = Flip.getState(heroTitle, { props: "textAlign" });
     // leftButtonRef.current?.addEventListener("mouseenter", () => {
     //   gsap.fromTo(
     //     "#hero__title",
@@ -96,11 +153,9 @@ export default function Home() {
         <div className="index-content page">
           <div id="hero__title--wrapper" className="m-auto row-span-2">
             <h1 id="hero__title" className=" heading" style={headingStyle}>
-              <span>
-                Sophisticated
-                <br />
-                skincare
-              </span>
+              <span className="hero__title--1">Sophisticated</span>
+              <br />
+              <span className="hero__title--2">skincare</span>
             </h1>
           </div>
           <div className="row-span-3 flex items-end">
@@ -137,7 +192,9 @@ export default function Home() {
         <div className="index-dotted-square index-right">
           <div className="pr-small right-button">
             <a href="" className="cursor-pointer right-icon">
-              <span className="pr-4 text-sm font-semibold right-button-label">TAKE TEST</span>
+              <span className="pr-4 text-sm font-semibold right-button-label">
+                TAKE TEST
+              </span>
               <span className="icon-button solid-square align-middle ">
                 <span className="icon-button icon-button-size m-auto flex items-center justify-center">
                   <Image

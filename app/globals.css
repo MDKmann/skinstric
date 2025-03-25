@@ -123,7 +123,7 @@ div#__next > div {
   .heading span {
     position: relative;
     display: block;
-    transform: translateY(100%);
+    transform: translateY(250%);
     width: 100%;
     letter-spacing: var(--tracking-tightest);
     font-size: var(--text-9xl);
@@ -184,24 +184,24 @@ div#__next > div {
     width: var(--size);
     will-change: transform;
   }
-
-  .left-button:hover ~ .dotted-square::before,
-  .right-button:hover ~ .dotted-square::before {
+  .dotted-square::before,
+  .dotted-square::after {
     content: "";
     border: inherit;
     height: inherit;
     width: inherit;
     position: absolute;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+  }
+
+  .left-button:hover ~ .dotted-square::before,
+  .right-button:hover ~ .dotted-square::before {
     transform: scale(1.13);
     opacity: 0.6;
   }
   .left-button:hover ~ .dotted-square::after,
   .right-button:hover ~ .dotted-square::after {
-    content: "";
-    border: inherit;
-    height: inherit;
-    width: inherit;
-    position: absolute;
     transform: scale(1.27);
     opacity: 0.3;
   }
@@ -228,6 +228,16 @@ div#__next > div {
     opacity: 1;
   }
 
+  .solid-square::after,
+  .solid-square::after {
+    content: "";
+    border: 1px dotted var(--color-quicksilver);
+    transform: scale(1.37);
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    opacity: 0;
+  }
   .left-button:hover .solid-square::after,
   .right-button:hover .solid-square::after {
     content: "";
@@ -244,6 +254,8 @@ div#__next > div {
   }
   .right-button:hover {
     transform: translateX(-10%);
+    
+    
   }
 
   .left-button:hover .solid-square::before {
@@ -255,8 +267,22 @@ div#__next > div {
     border: 1px solid var(--color-quicksilver);
   }
 
-  .right-button:hover .left-button-label {
-    margin-right: 2rem;
+  .left-button-label,
+  .right-button-label {
+    margin-inline: 0rem;
+  }
+  .left-button:hover .left-button-label,
+  .right-button:hover .right-button-label {
+    margin-inline: 2.5rem;
+  }
+
+  .solid-square::before,
+  .solid-square::after,
+  .left-button,
+  .right-button,
+  .left-button-label,
+  .right-button-label {
+    transition: all 1s ease-in-out;
   }
 
   .index-left .dotted-square {
