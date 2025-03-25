@@ -14,10 +14,13 @@ const Header = () => {
       ease: "power4.out",
       delay: 1.5,
     });
-  })
+  });
 
   return (
-    <header id="header" className="w-full h-16 grid grid-cols-2 grid-rows-1 items-center fixed wrapper -translate-y-full">
+    <header
+      id="header"
+      className="w-full h-16 grid grid-cols-2 grid-rows-1 items-center fixed wrapper -translate-y-full "
+    >
       <div className="flex">
         <a href="" className="font-semibold text-sm">
           SKINSTRIC
@@ -29,7 +32,7 @@ const Header = () => {
         </a>
       </div>
       <div className="flex justify-end ">
-        <button className="uppercase bg-eerie py-2 px-4 text-lotion text-micro font-semibold">
+        <button className="uppercase bg-eerie py-2 px-4 text-lotion text-micro font-semibold code-button">
           Enter Code
         </button>
       </div>

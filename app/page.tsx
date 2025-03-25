@@ -44,6 +44,18 @@ export default function Home() {
       ease: "power4.out",
       delay: 0.75,
     });
+    gsap.to("#intro-description", {
+      y: "0%",
+      duration: 1,
+      ease: "power4.out",
+      delay: 1.5,
+    });
+    gsap.to(".index-left, .index-right", {
+      x: "0%",
+      duration: 1,
+      ease: "power4.out",
+      delay: 0.75,
+    });
 
     leftButtonRef.current?.addEventListener("mouseenter", () => {
       if (heroTitle instanceof HTMLElement) {
@@ -125,39 +137,7 @@ export default function Home() {
     });
   }, []);
 
-  useEffect(() => {
-    // const state = Flip.getState(heroTitle, { props: "textAlign" });
-    // leftButtonRef.current?.addEventListener("mouseenter", () => {
-    //   gsap.fromTo(
-    //     "#hero__title",
-    //     {
-    //       textAlign: "center",
-    //       ease: "power1.inOut",
-    //       duration: 1,
-    //     },
-    //     {
-    //       textAlign: "end",
-    //       ease: "power1.inOut",
-    //       duration: 1,
-    //     }
-    //   );
-    // });
-    // leftButtonRef?.current?.addEventListener("mouseleave", () => {
-    //   gsap.fromTo(
-    //     "#hero__title",
-    //     {
-    //       textAlign: "end",
-    //       ease: "power1.inOut",
-    //       duration: 0.5,
-    //     },
-    //     {
-    //       textAlign: "center",
-    //       ease: "power1.inOut",
-    //       duration: 0.5,
-    //     }
-    //   );
-    // });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <main className=" text-eerie flex grow shrink basis-auto  ">
@@ -181,7 +161,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="index-dotted-square index-left">
+        <div className="landing__square--container index-left">
           <div className="pl-small left-button">
             <a href="" className="cursor-pointer left-icon">
               <span className="icon-button solid-square align-middle ">
@@ -204,7 +184,7 @@ export default function Home() {
           </div>
           <span className="dotted-square"></span>
         </div>
-        <div className="index-dotted-square index-right">
+        <div className="landing__square--container  index-right">
           <div className="pr-small right-button">
             <a href="" className="cursor-pointer right-icon">
               <span className="pr-4 text-sm font-semibold right-button-label">
