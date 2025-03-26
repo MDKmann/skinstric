@@ -128,7 +128,7 @@ div#__next > div {
     width: 100%;
     letter-spacing: var(--tracking-tightest);
     font-size: var(--text-9xl);
-    line-height: var(--spacing-tight);
+    line-height: var(--spacing-tighter);
     font-weight: 300;
   }
 

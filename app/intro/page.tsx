@@ -1,7 +1,6 @@
 import React from "react";
 import Form from "next/form";
-import Image from 'next/image'
-import leftArrowIcon from "../../public/leftPolygon.png"
+import BackButton from "@/components/ui/BackButton";
 
 function formPage() {
   return (
@@ -28,7 +27,10 @@ function formPage() {
         <span className="dotted-square"></span>
       </div>
       <div className="pl-small left-button absolute bottom-10">
-        <a href="" className="cursor-pointer left-icon">
+        <BackButton />
+      </div>
+      {/* <div className="pl-small left-button absolute bottom-10">
+        <Link href="" className="cursor-pointer left-icon">
           <span className="icon-button solid-square align-middle ">
             <span className="icon-button icon-button-size m-auto flex items-center justify-center">
               <Image
@@ -45,8 +47,8 @@ function formPage() {
           <span className="pl-4 uppercase text-sm font-semibold left-button-label">
             Back
           </span>
-        </a>
-      </div>
+        </Link>
+      </div> */}
     </>
   );
 }

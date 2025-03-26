@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Flip } from "gsap/Flip";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP);
@@ -163,7 +164,7 @@ export default function Home() {
 
         <div className="landing__square--container index-left">
           <div className="pl-small left-button">
-            <a href="" className="cursor-pointer left-icon">
+            <Link href="" className="cursor-pointer left-icon">
               <span className="icon-button solid-square align-middle ">
                 <span className="icon-button icon-button-size m-auto flex items-center justify-center">
                   <Image
@@ -180,13 +181,13 @@ export default function Home() {
               <span className="pl-4 uppercase text-sm font-semibold left-button-label">
                 Discover A.I.
               </span>
-            </a>
+            </Link>
           </div>
           <span className="dotted-square"></span>
         </div>
         <div className="landing__square--container  index-right">
           <div className="pr-small right-button">
-            <a href="" className="cursor-pointer right-icon">
+            <Link href="/intro" className="cursor-pointer right-icon">
               <span className="pr-4 text-sm font-semibold right-button-label">
                 TAKE TEST
               </span>
@@ -203,7 +204,7 @@ export default function Home() {
                   />
                 </span>
               </span>
-            </a>
+            </Link>
           </div>
           <span className="dotted-square"></span>
         </div>
