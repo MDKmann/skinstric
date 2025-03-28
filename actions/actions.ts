@@ -11,7 +11,7 @@ export async function submitUserData(formData: FormData) {
     "https://wk7wmfz7x8.execute-api.us-east-2.amazonaws.com/live/FES_Virtual_Internship_1/level2",
     {
       method: "POST",
-      body: ({ userName, userLocation }),
+      body: JSON.stringify({ userName, userLocation }),
     }
   );
 
