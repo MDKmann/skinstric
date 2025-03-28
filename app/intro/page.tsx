@@ -1,6 +1,6 @@
 import React from "react";
-import Form from "next/form";
 import BackButton from "@/components/ui/BackButton";
+import { submitUserData } from "@/actions/actions";
 
 function formPage() {
   return (
@@ -12,7 +12,7 @@ function formPage() {
       </div>
       <div className="form__square--container w-full h-full">
         <div className="text-center absolute">
-          <Form>
+          <form action={submitUserData}>
             <label className="uppercase opacity-40 text-sm text-eerie">
               Click to type
             </label>
@@ -20,9 +20,10 @@ function formPage() {
             <input
               className=" text-6xl tracking-tightest placeholder:text-eerie focus:placeholder:opacity-40 text-center underline underline-offset-8 decoration-1 outline-none  focus:placeholder:transition-all placeholder:transition-all transition-all"
               type="text"
+              name="userName"
               placeholder="Introduce Yourself"
             />
-          </Form>
+          </form>
         </div>
         <span className="dotted-square"></span>
       </div>
