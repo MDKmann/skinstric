@@ -12,7 +12,7 @@ function formPage() {
       </div>
       <div className="form__square--container w-full h-full">
         <div className="text-center absolute">
-          <Form>
+          <Form action="put your api endpoint here">
             <label className="uppercase opacity-40 text-sm text-eerie">
               Click to type
             </label>
