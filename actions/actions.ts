@@ -3,20 +3,18 @@
 
 "use server"
 
-export async function submitUserData(formData: FormData) {
-  const userName = formData.get("userName") as string;
-  const userLocation = formData.get("userLocation") as string;
-
+export async function submitUserData(userName: string, userLocation: string) {
 
   const response = await fetch(
     "https://wk7wmfz7x8.execute-api.us-east-2.amazonaws.com/live/FES_Virtual_Internship_1/level2",
     {
       method: "POST",
       headers: {"Content-Type": "application/json" },
-      body: JSON.stringify({ userName, userLocation }),
+      body: JSON.stringify({ Name: userName, Location: userLocation }),
     }
   );
   const result = await response.json();
+  
   return result;
 }
 

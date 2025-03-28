@@ -187,7 +187,7 @@ export default function Home() {
         </div>
         <div className="landing__square--container  index-right">
           <div className="pr-small right-button">
-            <Link href="/intro" className="cursor-pointer right-icon">
+            <Link href="/intro/name" className="cursor-pointer right-icon">
               <span className="pr-4 text-sm font-semibold right-button-label">
                 TAKE TEST
               </span>
