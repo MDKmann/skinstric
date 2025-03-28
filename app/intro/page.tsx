@@ -1,8 +1,20 @@
+"use client";
+
 import React from "react";
 import BackButton from "@/components/ui/BackButton";
 import { submitUserData } from "@/actions/actions";
 
 function formPage() {
+  // const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  //   if (
+  //     (e.key === "Enter" || e.key === "NumpadEnter")
+  //   ) {
+  //     e.preventDefault();
+  //     e.currentTarget.form?.requestSubmit();
+  //   }
+  // };
+
+
   return (
     <>
       <div>
@@ -18,6 +30,7 @@ function formPage() {
             </label>
             <br />
             <input
+              // onKeyDown={handleKeyDown}
               className=" text-6xl tracking-tightest placeholder:text-eerie focus:placeholder:opacity-40 text-center underline underline-offset-8 decoration-1 outline-none  focus:placeholder:transition-all placeholder:transition-all transition-all"
               type="text"
               name="userName"
