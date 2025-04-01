@@ -4,37 +4,43 @@ import React, { useEffect, useState } from "react";
 import BackButton from "@/components/ui/BackButton";
 import { submitUserData } from "@/actions/actions";
 import { useRouter } from "next/navigation";
+import PlacesInput from "@/components/ui/PlacesInput";
+import GoogleMapsLoader from "@/components/utils/GoogleMapsLoader";
 
-function UserLocationForm() {
+const UserLocationForm: React.FC = () => {
   const router = useRouter();
   const [userLocation, setUserLocation] = useState("");
+  const [coordinates, setCoordinates] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
   const [userName, setUserName] = useState("");
+  const [scriptLoaded, setScriptLoaded] = useState(false);
 
-  useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
-    if (!storedUserName) {
-      // redirect to name form if userName is not set
-      router.push("/intro/name");
-    } else {
-      setUserName(storedUserName);
-    }
-  },[router]);
+ useEffect(() => {
+   const storedUserName = localStorage.getItem("userName");
+   if (!storedUserName) {
+     router.push("/intro/name"); // Redirect if username is missing
+   } else {
+     setUserName(storedUserName);
+   }
+ }, [router]);
 
-     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-       event.preventDefault();
-  
-       if (!userLocation) {
-          alert("Please enter your location");
-          return;   
-       }
-       
-       const response = await submitUserData(userName, userLocation);
-  
-       return response;
-      }
+ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+   event.preventDefault();
+
+   if (!userLocation) {
+     alert("Please enter your location");
+     return;
+   }
+
+   const response = await submitUserData(userName, userLocation);
+   console.log("Submitted:", response);
+ };
 
   return (
     <>
+      <GoogleMapsLoader onLoad={() => setScriptLoaded(true)} />
       <div>
         <span className="mt-20 wrapper uppercase font-semibold">
           To Start Analysis
@@ -47,13 +53,14 @@ function UserLocationForm() {
               Click to type
             </label>
             <br />
-            <input
-              className=" text-6xl tracking-tightest placeholder:text-eerie focus:placeholder:opacity-40 text-center underline underline-offset-8 decoration-1 outline-none  focus:placeholder:transition-all placeholder:transition-all transition-all"
-              type="text"
-              name="userLocation"
-              placeholder="Where are you from?"
-              onChange={(event) => setUserLocation(event.target.value)}
-            />
+            {scriptLoaded ? (
+              <PlacesInput
+                setUserLocation={setUserLocation}
+                setCoordinates={setCoordinates}
+              />
+            ) : (
+              <p>Loading Google Maps...</p>
+            )}
           </form>
         </div>
         <span className="dotted-square"></span>
@@ -63,6 +70,6 @@ function UserLocationForm() {
       </div>
     </>
   );
-}
+};
 
 export default UserLocationForm;
