@@ -10,7 +10,7 @@ export async function submitUserData(userName: string, userLocation: string) {
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ Name: userName, Location: userLocation }),
+      body: JSON.stringify({name: userName, location: userLocation }),
     }
   );
   const result = await response.json();
