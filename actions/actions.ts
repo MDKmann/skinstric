@@ -6,10 +6,10 @@
 export async function submitUserData(userName: string, userLocation: string) {
 
   const response = await fetch(
-    "https://wk7wmfz7x8.execute-api.us-east-2.amazonaws.com/live/FES_Virtual_Internship_1/level2",
+    "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseOne",
     {
       method: "POST",
-      headers: {"Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ Name: userName, Location: userLocation }),
     }
   );
