@@ -6,6 +6,8 @@ import { submitUserData } from "@/actions/actions";
 import { useRouter } from "next/navigation";
 import PlacesInput from "@/components/ui/PlacesInput";
 import GoogleMapsLoader from "@/components/utils/GoogleMapsLoader";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const UserLocationForm: React.FC = () => {
   const router = useRouter();
@@ -16,6 +18,21 @@ const UserLocationForm: React.FC = () => {
   } | null>(null);
   const [userName, setUserName] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
+
+  // useGSAP(() => {
+  //   const tl = gsap.timeline({ delay: 0.5 });
+  //   tl.to(".dotted-square", { rotate: 90, duration: 10, delay: 0.5 });
+  //   tl.to(
+  //     ".dotted__square--1",
+  //     { rotate: 135, duration: 15, delay: 0.5 },
+  //     "-=85%"
+  //   );
+  //   tl.to(
+  //     ".dotted__square--2",
+  //     { rotate: 180, duration: 20, delay: 0.5 },
+  //     "-=75%"
+  //   );
+  // });
 
  useEffect(() => {
    const storedUserName = localStorage.getItem("userName");
@@ -64,6 +81,8 @@ const UserLocationForm: React.FC = () => {
           </form>
         </div>
         <span className="dotted-square"></span>
+        <span className="dotted__square--1"></span>
+        <span className="dotted__square--2"></span>
       </div>
       <div className="pl-small left-button absolute bottom-10">
         <BackButton />

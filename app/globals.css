@@ -141,13 +141,15 @@ div#__next > div {
     left: 50%;
     width: 100%;
     transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
   }
 
   .heading span {
     position: relative;
     display: block;
     transform: translateY(250%);
-    width: 100%;
+
     letter-spacing: var(--tracking-tightest);
     font-size: var(--text-9xl);
     line-height: var(--spacing-tighter);
@@ -175,6 +177,8 @@ div#__next > div {
     position: absolute;
     top: 50%;
     transform: translateX(-200%) translateY(-50%);
+    /* Feature not implemented yet */
+    cursor: not-allowed;
   }
   .index-right {
     right: 0;
@@ -183,7 +187,7 @@ div#__next > div {
     transform: translateX(200%) translateY(-50%);
   }
 
-  .dotted-square {
+  .dotted-square, .dotted__square--1, .dotted__square--2 {
     --size: 200px;
     --base-transform: translate(0);
     --base-rotation: 45deg;
@@ -191,11 +195,13 @@ div#__next > div {
     border: 2px dotted var(--color-quicksilver);
     display: block;
     height: var(--size);
-    position: relative;
+    position: absolute;
     transform: rotate(var(--base-rotation));
     width: var(--size);
     will-change: transform;
   }
+
+
   .dotted-square::before,
   .dotted-square::after {
     content: "";
@@ -204,7 +210,7 @@ div#__next > div {
     width: inherit;
     position: absolute;
     opacity: 0;
-    transition: all 1s ease-in-out;
+    transition: all .5s ease-in-out;
   }
 
   .left-button:hover ~ .dotted-square::before,
@@ -292,7 +298,7 @@ div#__next > div {
   .right-button,
   .left-button-label,
   .right-button-label {
-    transition: all 1s ease-in-out;
+    transition: all .5s ease-in-out;
   }
 
   .index-left .dotted-square {
@@ -362,17 +368,17 @@ div#__next > div {
     align-items: center;
   }
 
-  .form__square--container .dotted-square {
+  .form__square--container .dotted-square, .form__square--container .dotted__square--1, .form__square--container .dotted__square--2 {
     --size: 23.43vw;
     pointer-events: none;
   }
 
-  .form__square--container .dotted-square::before {
-    transform: scale(1.13);
+  .form__square--container  .dotted__square--1 {
+    transform: rotate(45deg) scale(1.13);
     opacity: 0.6;
   }
-  .form__square--container .dotted-square::after {
-    transform: scale(1.27);
+  .form__square--container  .dotted__square--2 {
+    transform: rotate(45deg) scale(1.27);
     opacity: 0.3;
   }
 

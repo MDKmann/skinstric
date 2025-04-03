@@ -5,7 +5,6 @@ import leftArrowIcon from "../public/leftPolygon.png";
 import rightArrowIcon from "../public/rightPolygon.png";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Flip } from "gsap/Flip";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 
@@ -13,14 +12,15 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP);
 }
 
-gsap.registerPlugin(Flip);
-
 export default function Home() {
   const leftButtonRef = useRef<HTMLInputElement>(null);
   const rightButtonRef = useRef<HTMLInputElement>(null);
 
   const headingStyle = {
     textAlign: "center" as const,
+  };
+  const headingWidth = {
+    width: "100%" as const,
   };
 
   useGSAP(() => {
@@ -31,7 +31,7 @@ export default function Home() {
       y: "0%",
       duration: 1,
       ease: "power4.out",
-      delay: .25,
+      delay: 0.25,
     });
     gsap.to("#intro-description", {
       y: "0%",
@@ -60,21 +60,15 @@ export default function Home() {
 
     leftButtonRef.current?.addEventListener("mouseenter", () => {
       if (heroTitle instanceof HTMLElement) {
-        gsap.to(".hero__title--1", {
-          x: "30%",
-          duration: 2,
-          ease: "power4.out",
-          delay: 0.25,
-        });
-        gsap.to(".hero__title--2", {
-          x: "37%",
-          duration: 2,
-          ease: "power4.out",
-          delay: 0.25,
-        });
-        gsap.to(".index-right", {
-          opacity: 0,
-          duration: 2,
+        // gsap.to(".hero__title--1, .hero__title--2", {
+        //   width: "0",
+        //   duration: 1,
+        //   ease: "power4.out",
+        //   delay: 0.25,
+        // });
+        gsap.to(".index-left", {
+          opacity: 0.5,
+          duration: 1,
           ease: "power4.out",
           delay: 0.25,
         });
@@ -83,13 +77,13 @@ export default function Home() {
 
     leftButtonRef.current?.addEventListener("mouseleave", () => {
       if (heroTitle instanceof HTMLElement) {
-        gsap.to(".hero__title--1, .hero__title--2", {
-          x: "0%",
-          duration: 1,
-          ease: "power4.out",
-          delay: 0.25,
-        });
-        gsap.to(".index-right", {
+        // gsap.to(".hero__title--1, .hero__title--2", {
+        //   width: "100%",
+        //   duration: 1,
+        //   ease: "power4.out",
+        //   delay: 0.25,
+        // });
+        gsap.to(".index-left", {
           opacity: 1,
           duration: 1,
           ease: "power4.out",
@@ -99,21 +93,24 @@ export default function Home() {
     });
     rightButtonRef.current?.addEventListener("mouseenter", () => {
       if (heroTitle instanceof HTMLElement) {
+        gsap.to(".heading", {
+          marginLeft: "2.25rem",
+        });
         gsap.to(".hero__title--1", {
-          x: "-30%",
-          duration: 2,
+          width: "0",
+          duration: 3,
           ease: "power4.out",
           delay: 0.25,
         });
         gsap.to(".hero__title--2", {
-          x: "-37%",
-          duration: 2,
+          width: "0",
+          duration: 2.15,
           ease: "power4.out",
           delay: 0.25,
         });
         gsap.to(".index-left", {
           opacity: 0,
-          duration: 2,
+          duration: 1,
           ease: "power4.out",
           delay: 0.25,
         });
@@ -123,8 +120,8 @@ export default function Home() {
     rightButtonRef.current?.addEventListener("mouseleave", () => {
       if (heroTitle instanceof HTMLElement) {
         gsap.to(".hero__title--1, .hero__title--2", {
-          x: "0%",
-          duration: 1,
+          width: "100%",
+          duration: 1.5,
           ease: "power4.out",
           delay: 0.25,
         });
@@ -146,9 +143,13 @@ export default function Home() {
         <div className="index-content page">
           <div id="hero__title--wrapper" className="m-auto row-span-2">
             <h1 id="hero__title" className=" heading" style={headingStyle}>
-              <span className="hero__title--1">Sophisticated</span>
+              <span className="hero__title--1" style={headingWidth}>
+                Sophisticated
+              </span>
               <br />
-              <span className="hero__title--2">skincare</span>
+              <span className="hero__title--2" style={headingWidth}>
+                skincare
+              </span>
             </h1>
           </div>
           <div className="row-span-3 flex items-end">
@@ -164,9 +165,9 @@ export default function Home() {
 
         <div className="landing__square--container index-left">
           <div className="pl-small left-button">
-            <Link href="" className="cursor-pointer left-icon">
-              <span className="icon-button solid-square align-middle ">
-                <span className="icon-button icon-button-size m-auto flex items-center justify-center">
+            <Link href="" className="cursor-not-allowed left-icon">
+              <span className="cursor-not-allowed icon-button solid-square align-middle ">
+                <span className="cursor-not-allowed icon-button icon-button-size m-auto flex items-center justify-center">
                   <Image
                     src={leftArrowIcon}
                     alt="Discover a.i. arrow icon"
@@ -178,7 +179,7 @@ export default function Home() {
                   />
                 </span>
               </span>
-              <span className="pl-4 uppercase text-sm font-semibold left-button-label">
+              <span className="pl-4 uppercase text-sm font-semibold left-button-label cursor-not-allowed ">
                 Discover A.I.
               </span>
             </Link>
