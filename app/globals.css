@@ -24,6 +24,7 @@
 
 /* CSS RESET */
 
+
 *,
 *::before,
 *::after {
@@ -71,6 +72,9 @@ img {
   shape-margin: 0.75rem;
 }
 
+input[type='file'] {
+  display: none;
+}
 /* html,
 body,
 main,
@@ -402,4 +406,30 @@ div#__next > div {
     position: absolute;
     z-index: 1000;
   }
+
+      /* =====  FORM PAGE */
+  .scan__square--container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .scan__square--container .dotted-square, .scan__square--container .dotted__square--1, .scan__square--container .dotted__square--2 {
+    --size: 14.93vw;
+    pointer-events: none;
+  }
+
+  .scan__square--container  .dotted__square--1 {
+    transform: rotate(45deg) scale(1.13);
+    opacity: 0.6;
+  }
+  .scan__square--container  .dotted__square--2 {
+    transform: rotate(45deg) scale(1.27);
+    opacity: 0.3;
+  }
+  
 }
