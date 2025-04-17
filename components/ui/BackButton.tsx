@@ -13,12 +13,12 @@ function BackButton() {
   };
 
   return (
-    <button onClick={handleBack} className="cursor-pointer left-icon">
+    <button onClick={handleBack} className="cursor-pointer left-icon left-button">
       <span className="icon-button solid-square align-middle ">
         <span className="icon-button icon-button-size m-auto flex items-center justify-center">
           <Image
             src={leftArrowIcon}
-            alt="Discover a.i. arrow icon"
+            alt="left arrow icon"
             className="rotate-195"
             style={{
               maxWidth: "100%",

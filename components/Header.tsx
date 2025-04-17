@@ -4,17 +4,19 @@ import Image from "next/image";
 import leftHug from "../public/Rectangle 2710.svg";
 import rightHug from "../public/Rectangle 2711.svg";
 import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+// import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 const Header = () => {
   const headerRef = useRef<HTMLDivElement>(null);
-  const isLandingpage = usePathname();
+  const pathname = usePathname();
+  // returns the first word from current path after removing forward slashes
+  const currentPathname = pathname.split("/")[1];
 
   useEffect(() => {
-    if (isLandingpage === "/") {
+    if (pathname === "/") {
       const gsapContext = gsap.context(() => {
         gsap.to(headerRef.current, {
           y: "0%",
@@ -27,7 +29,7 @@ const Header = () => {
       return () => {
         gsapContext.revert();
       };
-    } else if (isLandingpage !== "/") {
+    } else if (pathname !== "/") {
       const gsapContext = gsap.context(() => {
         gsap.to(headerRef.current, {
           y: "0%",
@@ -40,7 +42,7 @@ const Header = () => {
         gsapContext.revert();
       };
     }
-  }, [isLandingpage]);
+  }, [pathname]);
 
   // useGSAP(() => {
   //   gsap.to("#header", {
@@ -63,12 +65,14 @@ const Header = () => {
         </Link>
         <a href="" className="flex ml-4">
           <Image src={leftHug} alt="" className="" />
-          <span className="px-1.5 text-sm">INTRO</span>
+          <span className="px-1.5 text-sm uppercase">
+            {pathname === "/" ? <>intro</> : currentPathname}
+          </span>
           <Image src={rightHug} alt="" className="" />
         </a>
       </div>
       <div className="flex justify-end ">
-        {isLandingpage === "/" ? (
+        {pathname === "/" ? (
           <button className="uppercase bg-eerie py-2 px-4 text-lotion text-micro font-semibold code-button">
             Enter Code
           </button>

@@ -152,7 +152,7 @@ export default function Home() {
               </span>
             </h1>
           </div>
-          <div className="row-span-3 flex items-end">
+          {/* <div className="row-span-3 flex items-end">
             <p
               id="intro-description"
               className="line-clamp-3 text-wrap w-80 uppercase text-sm leading-roomy"
@@ -160,7 +160,7 @@ export default function Home() {
               Skinstric developed an A.I. that creates a highly-personalised
               routine tailored to what your skin needs.
             </p>
-          </div>
+          </div> */}
         </div>
 
         <div className="landing__square--container index-left">

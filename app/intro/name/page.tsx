@@ -1,51 +1,48 @@
 "use client";
 
-import React, { useState } from "react";
-import BackButton from "@/components/ui/BackButton";
+import React, { useCallback, useEffect, useState } from "react";
+
 import { useRouter } from "next/navigation";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+
+import { useSubmitStore } from "@/app/hooks/useSubmitStore";
 
 function UserNameForm() {
   const router = useRouter();
-  const [userName, setUserName] = useState("");
+  // State to hold the user's name
+  const [userName, setUserName] = useState<string>("");
+  // Zustand action to register the current page's submit handler
+  const setSubmitHandlerFn = useSubmitStore(
+    (state) => state.setSubmitHandlerFn
+  );
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!userName) {
+  const handleUserSubmit = useCallback((): void => {
+    if (!userName.trim()) {
       alert("Please enter your name");
       return;
     }
-    // store userName in local storage for next page
-    localStorage.setItem("userName", userName);
 
-    // Flow to location form
+    // Store name for use on the next page
+    localStorage.setItem("userName", userName.trim());
+
+    // Navigate to the next form step
     router.push("/intro/location");
-  };
-  // useGSAP(() => {
-  //   const tl = gsap.timeline({
-  //     repeat: -1,
-  //     paused: false,
-  //     ease: "linear.easeNone",
-  //     onRepeat: () => {
-  //       // tl.invalidate();
-  //       tl.restart();// Invalidate to restart from the end
-  //     },
-  //   });
-  //   tl.to(".dotted-square", { rotate: 360, duration: 60 });
-  //   tl.to(
-  //     ".dotted__square--1",
+  }, [userName, router]);
 
-  //     { rotate: 360, duration: 60 },
-  //     "-=85%"
-  //   );
-  //   tl.to(
-  //     ".dotted__square--2",
-  //     { rotate: 360, duration: 60 },
-  //     "-=85%"
-  //   );
-  // });
+  /**
+   * Input change handler with proper typing
+   */
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setUserName(event.target.value);
+  };
+
+  /**
+   * Register the submit function in the global Zustand store
+   * so it can be triggered from the footer's "Forward" button.
+   */
+  useEffect(() => {
+    console.log("Registering submit handler from UserNameForm");
+    setSubmitHandlerFn(handleUserSubmit);
+  }, [setSubmitHandlerFn, handleUserSubmit]);
 
   return (
     <>
@@ -56,7 +53,7 @@ function UserNameForm() {
       </div>
       <div className="form__square--container w-full h-full">
         <div className="text-center absolute">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleUserSubmit}>
             <label className="uppercase opacity-40 text-sm text-eerie">
               Click to type
             </label>
@@ -66,16 +63,13 @@ function UserNameForm() {
               type="text"
               name="userName"
               placeholder="Introduce Yourself"
-              onChange={(event) => setUserName(event.target.value)}
+              onChange={handleInputChange}
             />
           </form>
         </div>
         <span className="dotted-square"></span>
         <span className="dotted__square--1"></span>
         <span className="dotted__square--2"></span>
-      </div>
-      <div className="pl-small left-button absolute bottom-10">
-        <BackButton />
       </div>
     </>
   );

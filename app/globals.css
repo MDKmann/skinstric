@@ -15,6 +15,13 @@
   font-style: normal;
 }
 @font-face {
+  font-family: "roobert-medium";
+
+  src: url("../public/fonts/RoobertTRIAL-Medium.woff2");
+
+  font-style: normal;
+}
+@font-face {
   font-family: "roobert-semibold";
 
   src: url("../public/fonts/RoobertTRIAL-SemiBold.woff2");
@@ -86,9 +93,14 @@ div#__next > div {
 
 @theme {
   /* CUSTOM TAILWIND COLORS PER FIGMA FILE */
+  /* COLOR NAMES FROM https://www.color-name.com/ */
   --color-lotion: #fcfcfc;
   --color-eerie: #1a1b1c;
   --color-quicksilver: #a0a4ab;
+  --color-antiflash: #f3f3f4;
+  --color-platinum: #e1e1e2;
+  --color-lightgray: #d1d1d2;
+  --color-silversand: #c1c2c3;
   /* CUSTOM TEXT STYLING PER FIGMA FILE */
   --tracking-tightest: -0.07em;
   --spacing-tighter: 0.9375;
@@ -431,5 +443,8 @@ div#__next > div {
     transform: rotate(45deg) scale(1.27);
     opacity: 0.3;
   }
+
+  /*==== Analysys Dashboard */
+
   
 }

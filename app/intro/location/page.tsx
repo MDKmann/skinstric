@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import BackButton from "@/components/ui/BackButton";
+import React, { useCallback, useEffect, useState } from "react";
+
 import { submitUserData } from "@/actions/actions";
 import { useRouter } from "next/navigation";
 import PlacesInput from "@/components/ui/PlacesInput";
 import GoogleMapsLoader from "@/components/utils/GoogleMapsLoader";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useSubmitStore } from "@/app/hooks/useSubmitStore";
 
 const UserLocationForm: React.FC = () => {
   const router = useRouter();
@@ -18,6 +19,11 @@ const UserLocationForm: React.FC = () => {
   } | null>(null);
   const [userName, setUserName] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
+  // Zustand action to register the current page's submit handler
+  // Zustand action to register the current page's submit handler
+  const setSubmitHandlerFn = useSubmitStore(
+    (state) => state.setSubmitHandlerFn
+  );
 
   // useGSAP(() => {
   //   const tl = gsap.timeline({ delay: 0.5 });
@@ -34,6 +40,29 @@ const UserLocationForm: React.FC = () => {
   //   );
   // });
 
+  const handleLocationSubmit = useCallback((): void => {
+    if (!userLocation) {
+      alert("Please enter your location");
+      return;
+    }
+    
+    (async () => {
+      try {
+        const response = await submitUserData(userName, userLocation);
+        console.log("Submitted:", response);
+        router.push("/intro/scan");
+      } catch (error) {
+        console.error("Error submitting user data:", error);
+      }
+    })();
+  }, [userLocation, userName, router]);
+
+  //   const response = await submitUserData(userName, userLocation);
+  //   console.log("Submitted:", response);
+  //   // Navigate to the next form step
+  //   router.push("/intro/scan");
+  // },[userName, userLocation,router])
+
  useEffect(() => {
    const storedUserName = localStorage.getItem("userName");
    if (!storedUserName) {
@@ -41,20 +70,18 @@ const UserLocationForm: React.FC = () => {
    } else {
      setUserName(storedUserName);
    }
- }, [router]);
+   /**
+    * Register the submit function in the global Zustand store
+    * so it can be triggered from the footer's "Forward" button.
+    */
+   console.log("Registering submit handler from UserLocationForm");
+   setSubmitHandlerFn(handleLocationSubmit);
+ }, [setSubmitHandlerFn, handleLocationSubmit,router]);
 
- const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-   event.preventDefault();
+ 
 
-   if (!userLocation) {
-     alert("Please enter your location");
-     return;
-   }
-
-   const response = await submitUserData(userName, userLocation);
-   console.log("Submitted:", response);
- };
-
+   
+   
   return (
     <>
       <GoogleMapsLoader onLoad={() => setScriptLoaded(true)} />
@@ -65,7 +92,7 @@ const UserLocationForm: React.FC = () => {
       </div>
       <div className="form__square--container w-full h-full">
         <div className="text-center absolute">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleLocationSubmit}>
             <label className="uppercase opacity-40 text-sm text-eerie">
               Click to type
             </label>
@@ -83,9 +110,6 @@ const UserLocationForm: React.FC = () => {
         <span className="dotted-square"></span>
         <span className="dotted__square--1"></span>
         <span className="dotted__square--2"></span>
-      </div>
-      <div className="pl-small left-button absolute bottom-10">
-        <BackButton />
       </div>
     </>
   );
