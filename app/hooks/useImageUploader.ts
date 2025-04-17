@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { submitUserImage } from "@/actions/actions";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
 export default function useImageUploader() {
+  const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<UploadStatus>("idle");
   const [base64, setBase64] = useState<string | null>(null);
@@ -15,16 +17,20 @@ export default function useImageUploader() {
   }
 
   async function handleFileUpload() {
+   
+
     if (!base64) return;
 
     setStatus("uploading");
     try {
-      await submitUserImage(base64);
+      const response = await submitUserImage(base64);
+      const storedScanResults = localStorage.setItem("storedScanResults", JSON.stringify(response))
       setStatus("success");
+      console.log("Submitted:", response);
+      router.push("/analysis");
     } catch {
       setStatus("error");
     }
-    
   }
 
   function reset() {

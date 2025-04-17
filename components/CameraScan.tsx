@@ -5,7 +5,7 @@ import React from 'react'
 
 function CameraScan({ gridPlace }: {gridPlace: string}) {
   return (
-    <div className={`relative w-full h-full ${gridPlace}`}>
+    <div className={`relative transform w-full h-full ${gridPlace}`}>
       <div className="scan__square--container">
         <div className="w-full h-full">
           <div className="w-36 h-36 absolute -translate-1/2">
