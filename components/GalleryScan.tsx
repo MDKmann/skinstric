@@ -7,7 +7,7 @@ interface Props {
 }
 
 function GalleryScan({ gridPlace }: Props) {
-  return <ImageScanLogic gridPlace={gridPlace} icon={<GalleryIcon />} message={<p>Allow A.I. to access gallery</p>} />;
+  return <ImageScanLogic gridPlace={gridPlace} icon={<GalleryIcon />} messageGallery={<p>Allow A.I. to access gallery</p>} />;
 }
 
 export default GalleryScan;

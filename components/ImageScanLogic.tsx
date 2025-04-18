@@ -8,10 +8,11 @@ import FloatInfo from "./ui/FloatInfo";
 interface Props {
   icon: ReactNode;
   gridPlace: string;
-  message: ReactNode;
+  messageCamera?: ReactNode;
+  messageGallery?: ReactNode;
 }
 
-function ImageScanLogic({ icon, gridPlace, message }: Props) {
+function ImageScanLogic({ icon, gridPlace, messageCamera, messageGallery}: Props) {
   const { imageInfo, handleFileSelect, handleFileUpload, reset } =
     useImageUploader();
     const [showSuccess, setShowSuccess] = useState(false);
@@ -22,22 +23,29 @@ function ImageScanLogic({ icon, gridPlace, message }: Props) {
         <div className="w-full h-full">
           <ImageUploadInput icon={icon} onFileChange={handleFileSelect} />
           {!imageInfo && (
-            <div className="uppercase absolute -translate-x-70 translate-y-20 w-40 text-right ">
-              {message}
-            </div>
+            <>
+              <div className="uppercase absolute translate-x-30 -translate-y-30 w-40 text-left ">
+                {messageCamera}
+              </div>
+              <div className="uppercase absolute -translate-x-70 translate-y-20 w-40 text-right ">
+                {messageGallery}
+              </div>
+            </>
           )}
         </div>
 
         {imageInfo && (
           <FloatInfo
             message={
-               showSuccess ? ( <p> Upload Successful</p> ) :
-             ( <>
-                <p> Selected: {imageInfo.name} </p>
-                <p> Size: {imageInfo.size} KB</p>
-                <p> Type: {imageInfo.type}</p>
-              </>
-               )
+              showSuccess ? (
+                <p> Upload Successful</p>
+              ) : (
+                <>
+                  <p> Selected: {imageInfo.name} </p>
+                  <p> Size: {imageInfo.size} KB</p>
+                  <p> Type: {imageInfo.type}</p>
+                </>
+              )
             }
             buttons={[
               { label: "Deny", onClick: reset },
