@@ -79,31 +79,33 @@ function GalleryScan({ gridPlace }: { gridPlace: string }) {
 
   const messageGallery =
     status === "selected" && imageInfo ? (
-      <FloatInfo
-        message={
-          <>
-            <p>Selected: {imageInfo.name}</p>
-            <p>Size: {imageInfo.size}</p>
-            <p>Type: {imageInfo.type}</p>
-          </>
-        }
-        buttons={[
-          {
-            label: "Deny",
-            onClick: () => {
-              setShowOverlay(false);
-              reset();
-            }
-          },
-          {
-            label: "Allow",
-            onClick: async () => {
-              await handleFileUpload();
-              reset();
+      <div className="absolute -left-[140%]">
+        <FloatInfo
+          message={
+            <>
+              <p>Selected: {imageInfo.name}</p>
+              <p>Size: {imageInfo.size}</p>
+              <p>Type: {imageInfo.type}</p>
+            </>
+          }
+          buttons={[
+            {
+              label: "Deny",
+              onClick: () => {
+                setShowOverlay(false);
+                reset();
+              },
             },
-          },
-        ]}
-      />
+            {
+              label: "Allow",
+              onClick: async () => {
+                await handleFileUpload();
+                reset();
+              },
+            },
+          ]}
+        />
+      </div>
     ) : (
       <p>Allow A.I. to access gallery</p>
     );

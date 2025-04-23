@@ -4,8 +4,10 @@ import CameraIcon from "./ui/CameraIcon";
 import ImageScanWrapper from "./ImageScanWrapper";
 import FloatInfo from "./ui/FloatInfo";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function CameraScan({ gridPlace }: { gridPlace: string }) {
+  const router = useRouter();
   const [showPrompt, setShowPrompt] = useState(false);
 
   const message = showPrompt ? (
@@ -18,6 +20,7 @@ function CameraScan({ gridPlace }: { gridPlace: string }) {
           onClick: () => {
             setShowPrompt(false);
             console.log("CameraCaptureInput confirmed");
+            router.push("/analysis");
             // Trigger further logic (like enabling webcam)
           },
         },
