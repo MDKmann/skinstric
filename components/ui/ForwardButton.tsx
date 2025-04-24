@@ -4,12 +4,18 @@ import Image from "next/image";
 import rightArrowIcon from "../../public/rightPolygon.png";
 import { useSubmitStore } from "@/app/hooks/useSubmitStore";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+import useImageUploader from "@/app/hooks/useImageUploader";
 
 function ForwardButton() {
   const pathname = usePathname();
   const currentPathname = pathname.split("/").join("");
-  const dashboard = currentPathname === "analysis";
-
+  const webcam = currentPathname === "analysis";
+  const dashboard = pathname.includes("dashboard");
+  const { handleFileUpload } = useImageUploader();
+  const setSubmitHandlerFn = useSubmitStore(
+    (state) => state.setSubmitHandlerFn
+  );
   const callSubmitHandlerFn = useSubmitStore(
     (state) => state.callSubmitHandlerFn
   );
@@ -18,6 +24,12 @@ function ForwardButton() {
     console.log("ForwardButton clicked");
     callSubmitHandlerFn();
   };
+
+  useEffect(() => {
+    if (webcam) {
+      setSubmitHandlerFn(handleFileUpload);
+    }
+  }, [webcam, setSubmitHandlerFn, handleForward]);
 
   return (
     <button

@@ -98,7 +98,8 @@ export default function useImageUploader() {
       const response = await submitUserImage(base64);
       localStorage.setItem("storedScanResults", JSON.stringify(response));
       setStatus("success");
-      router.push("/analysis");
+      router.push("/analysis/dashboard");
+      console.log("Submitted:", response);
     } catch {
       setStatus("error");
     }

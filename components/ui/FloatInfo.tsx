@@ -23,14 +23,14 @@ function FloatInfo({ message, subInfo, buttons }: FloatInfoProps) {
       </div>
 
       <div className="grid grid-cols-2 h-auto row-start-3">
-        <div className="col-start-2 flex justify-end gap-4 items-center pr-4">
+        <div className="col-start-2 flex justify-end gap-4 items-center pr-4 relative">
           {buttons.map((btn, i) => (
             <button
               key={i}
-              className="uppercase cursor-pointer"
+              className="uppercase cursor-pointer py-2 "
               onClick={btn.onClick}
             >
-              {btn.label}
+              <span className="px-4 py-2">{btn.label}</span>
             </button>
           ))}
         </div>

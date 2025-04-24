@@ -4,68 +4,117 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Image from "next/image";
 import cameraGuide from "../../public/ellipse-guide.svg";
-import cameraTracedIcon from "../../public/camera-trace-icon.svg";
-import timerTracedIcon from "../../public/timer-trace-icon.svg";
+import cameraIcon from "../../public/fullCameraIcon.svg";
+import timerIcon from "../../public/fullTimerIcon.svg";
+import retakeIcon from "../../public/fullRetakeIcon.png";
+
+import { useImageUploaderStore } from "../hooks/useScanStore";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const WebcamComponent = () => <Webcam />;
 
 function CameraCapturePage() {
   const videoConstraints = {
     width: 1920,
-    height: 960,
+    height: 1080,
     facingMode: "user",
+    screenshotQuality: 1,
   };
-  const handleCapture = () => {};
   const webcamRef = useRef(null);
-  const previewImageRef = useRef(null);
-  const previewImage = previewImageRef.current;
+  const [timerPanelOpen, setTimerPanelOpen] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
+  const { setStatus, setBase64, reset } = useImageUploaderStore.getState();
 
   const capture = useCallback(() => {
-    const imageSrc = webcamRef?.current?.getScreenshot();
+    const imageSrc =
+      webcamRef.current &&
+      (webcamRef.current as unknown as Webcam).getScreenshot();
     setImageSrc(imageSrc);
-  }, [webcamRef, setImageSrc]);
+    setBase64(imageSrc);
+    setStatus("selected");
+  }, [webcamRef, setImageSrc, setBase64, setStatus]);
 
-  useEffect(() => {
-    if (imageSrc !== null) {
-      previewImageRef.current = (
-        <Image
-          src={imageSrc}
-          alt="camera capture preview image"
-          className=""
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-          }}
-        />
-      );
+  const retake = () => {
+    setImageSrc(null);
+    reset();
+  };
+
+  const handleTimerButton = () => {
+    setTimerPanelOpen(!timerPanelOpen);
+    console.log("Timer button clicked");
+  };
+
+  useGSAP(() => {
+    if (!timerPanelOpen) {
+      const tlOpen = gsap.timeline({});
+      tlOpen.to("#timerPanel", {
+        display: "grid",
+        height: "100%",
+        duration: 0.5,
+        ease: "power4.out",
+        delay: 0.25,
+      });
+      tlOpen.to("#timerPanel", {
+        width: "8vw",
+        opacity: "100%",
+        duration: 1,
+        ease: "ease",
+        delay: 0.25,
+      });
     }
-  }, [imageSrc]);
+    if (timerPanelOpen) {
+      const tlClose = gsap.timeline({});
+      tlClose.to("#timerPanel", {
+        width: "0",
+        opacity: "0",
+        duration: 1,
+        ease: "ease",
+        delay: 0.25,
+      });
+      tlClose.to("#timerPanel", {
+        display: "none",
+        duration: 0.5,
+        ease: "power4.out",
+        delay: 0.25,
+      });
+    }
+  }, [timerPanelOpen]);
 
   return (
     <>
       <div className="z-50 absolute top-0 right-0 bottom-0 left-0 grid grid-cols-3 ">
-        <div className="border-2 bg-amber-300 pl-8 flex items-center justify-baseline">
-          <div className="flex items-center gap-2 bg-lightsilver rounded-full pr-4">
-            <button className="bg-quicksilver p-2 rounded-full flex justify-center items-center">
+        <div className=" pl-8 flex items-center justify-baseline">
+          <div
+            id="timerContainer"
+            className="gridTest items-center bg-lightsilver rounded-full uppercase h-fit"
+          >
+            <button
+              onClick={handleTimerButton}
+              className="cursor-pointer whitespace-nowrap"
+            >
               <Image
-                src={timerTracedIcon}
+                src={timerIcon}
                 alt="camera timer"
-                className="size-6"
+                className=""
                 style={{
-                  maxWidth: "100%",
                   height: "auto",
+                  width: "auto",
                 }}
               />
             </button>
-            <div className="grid grid-cols-3 gap-2">
-              <span>off</span>
-              <span>3s</span>
-              <span>10s</span>
+            <div
+              id="timerPanel"
+              style={{ opacity: 0, width: 0, height: 0, display: "none" }}
+              className="items-center grid-cols-3"
+            >
+              <span className="text-center ">off</span>
+              <span className="text-center ">3s</span>
+              <span className="text-center ">10s</span>
             </div>
           </div>
         </div>
-        <div className="border-2 flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <Image
             src={cameraGuide}
             alt="camera guide"
@@ -76,38 +125,71 @@ function CameraCapturePage() {
             }}
           />
         </div>
-        <button
-          onClick={capture}
-          className="border-2 pr-8 flex items-center justify-end"
-        >
-          <div className="cursor-pointer flex items-center gap-2 py-2 pl-2">
-            <span className="text-eerie">Take Picture</span>
-            <div className="bg-lotion border-1  border-quicksilver outline-2 outline-lotion p-3 rounded-full flex justify-center items-center">
-              <Image
-                src={cameraTracedIcon}
-                alt="camera capture"
-                className="size-6"
-                style={{
-                  maxWidth: "100%",
-                  height: "auto",
-                }}
-              />
+        {imageSrc ? (
+          <button
+            onClick={retake}
+            className=" pr-8 flex items-center justify-end uppercase"
+          >
+            <div className="cursor-pointer flex items-center gap-2 py-2 pl-2">
+              <span className="text-eerie">retake</span>
+              <div className=" flex justify-center items-center">
+                <Image
+                  src={retakeIcon}
+                  alt="camera capture"
+                  className=""
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        </button>
+          </button>
+        ) : (
+          <button
+            onClick={capture}
+            className=" pr-8 flex items-center justify-end uppercase"
+          >
+            <div className="cursor-pointer flex items-center gap-2 py-2 pl-2">
+              <span className="text-eerie">Take Picture</span>
+              <div className="flex justify-center items-center">
+                <Image
+                  src={cameraIcon}
+                  alt="camera capture"
+                  className=""
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                  }}
+                />
+              </div>
+            </div>
+          </button>
+        )}
       </div>
-      {imageSrc === null ? (
-        <Webcam
-          audio={false}
-          height={960}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          width={1920}
-          videoConstraints={videoConstraints}
-        />
-      ) : (
-        <> {previewImage.innerHTML}</>
-      )}
+      <div className="blurred z-40"></div>
+      <div className="absolute flex justify-center items-center w-full h-full">
+        {imageSrc ? (
+          <Image
+            src={imageSrc}
+            alt="webcam"
+            height={960}
+            width={1920}
+            className=""
+            style={{ transform: "scaleX(-1)" }}
+          />
+        ) : (
+          <Webcam
+            audio={false}
+            // height={960}
+            ref={webcamRef}
+            screenshotFormat="image/webp"
+            // width={1920}
+            imageSmoothing={true}
+            videoConstraints={videoConstraints}
+          />
+        )}
+      </div>
     </>
   );
 }

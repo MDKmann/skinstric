@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react";
+import React, { useEffect } from "react";
 import BackButton from "./ui/BackButton";
 import ForwardButton from "./ui/ForwardButton"
 import { usePathname } from "next/navigation";
@@ -8,7 +8,11 @@ import { usePathname } from "next/navigation";
 function Footer() {
   const pathname = usePathname();
   const demographicsPath = pathname.includes("demographics")
-  const analysisPath = pathname.split("/")[1];
+  const analysisPath = pathname.endsWith("analysis");
+
+  useEffect(() => {
+    console.log(pathname);
+  }, [pathname]);
 
   return (
     <footer className=" h-1/12 w-full fixed  bottom-8 grid grid-cols-3 grid-rows-1 wrapper z-50">
@@ -42,22 +46,22 @@ function Footer() {
           <></>
         )}
         {analysisPath ? (
-          <div className="flex flex-col gap-4 uppercase">
-            <p className="text-quicksilver">
+          <div className="flex flex-col gap-4 uppercase text-eerie">
+            <p className="text-eerie">
               To get best results please make sure to have
             </p>
             <div className="grid grid-cols-3 gap-4">
               <div className="flex items-center justify-center">
-                <span className="size-3 transform rotate-45 border-1 border-quicksilver mr-3"></span>
-                <p className="text-quicksilver">Neutral Expression</p>
+                <span className="size-3 transform rotate-45 border-1 border-eerie mr-3"></span>
+                <p className="text-eerie">Neutral Expression</p>
               </div>
               <div className="flex items-center justify-center">
-                <span className="size-3 transform rotate-45 border-1 border-quicksilver mr-3"></span>
-                <p className="text-quicksilver">Frontal Pose</p>
+                <span className="size-3 transform rotate-45 border-1 border-eerie mr-3"></span>
+                <p className="text-eerie">Frontal Pose</p>
               </div>
               <div className="flex items-center justify-center">
-                <span className="size-3 transform rotate-45 border-1 border-quicksilver mr-3"></span>
-                <p className="text-quicksilver">Adequate Lighting</p>
+                <span className="size-3 transform rotate-45 border-1 border-eerie mr-3"></span>
+                <p className="text-eerie">Adequate Lighting</p>
               </div>
             </div>
           </div>
