@@ -1,31 +1,8 @@
 "use client";
-// import { useGSAP } from '@gsap/react';
-// import gsap from 'gsap';
-
 import React from 'react'
 
 
 function Loading() {
-
-  // useGSAP(() => {
-  //   const tl = gsap.timeline({});
-  //   tl.fromTo(".dotted-square", {
-  //     transform: "rotate(30deg)",
-  //   }, {
-  //     duration: 0.5,
-  //    transform: "rotate(45deg)",
-  //     ease: "power1.inOut",
-  //   });
-
-  //   tl.fromTo(".dotted__square--2", {
-  //     transform: "rotate(60deg)",
-  //   }, {
-  //     duration: 0.5,
-  //     transform: "rotate(45deg)",
-  //     ease: "power1.inOut",
-  //   });
-  // },[]);
-
 
   return (
       <div className="relative w-full h-full min-h-screen">

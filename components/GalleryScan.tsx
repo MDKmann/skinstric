@@ -1,62 +1,3 @@
-// "use client";
-
-// import GalleryIcon from "./ui/GalleryIcon";
-// import ImageScanWrapper from "./ImageScanWrapper";
-// import FloatInfo from "./ui/FloatInfo";
-// import { useEffect, useState } from "react";
-// import useImageUploader from "../app/hooks/useImageUploader";
-
-// function GalleryScan({ gridPlace }: { gridPlace: string }) {
-//   const [showOverlay, setShowOverlay] = useState(true);
-//   const { imageInfo, handleFileUpload, reset } =
-//     useImageUploader();
-
-//   useEffect(() => {
-//     if (imageInfo) setShowOverlay(true);
-//   }, [imageInfo]);
-
-//   const messageGallery =
-//     imageInfo && showOverlay ? (
-//       <FloatInfo
-//         message={
-//           <>
-//             <p>Selected: {imageInfo.name}</p>
-//             <p>Size: {imageInfo.size}</p>
-//             <p>Type: {imageInfo.type}</p>
-//           </>
-//         }
-//         buttons={[
-//           {
-//             label: "Deny",
-//             onClick: () => {
-//               setShowOverlay(false);
-//               reset();
-//             },
-//           },
-//           {
-//             label: "Allow",
-//             onClick: async () => {
-//               await handleFileUpload();
-//               setShowOverlay(false);
-//               reset();
-//             },
-//           },
-//         ]}
-//       />
-//     ) : (
-//       <p>Allow A.I. to access gallery</p>
-//     );
-
-//   return (
-//     <ImageScanWrapper
-//       gridPlace={gridPlace}
-//       iconGallery={<GalleryIcon />}
-//       messageGallery={messageGallery}
-//     />
-//   );
-// }
-
-// export default GalleryScan;
 "use client";
 
 import GalleryIcon from "./ui/GalleryIcon";
@@ -64,16 +5,23 @@ import ImageScanWrapper from "./ImageScanWrapper";
 import FloatInfo from "./ui/FloatInfo";
 import useImageUploader from "../app/hooks/useImageUploader";
 import { useImageUploaderStore } from "@/app/hooks/useScanStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-function GalleryScan({ gridPlace }: { gridPlace: string }) {
-  const [showOverlay, setShowOverlay] = useState(false);
+function GalleryScan({
+  gridPlace,
+  showUploadPrompt,
+   setShowUploadPrompt,
+}: {
+  gridPlace: string;
+  showUploadPrompt: boolean;
+   setShowUploadPrompt: (show: boolean) => void;
+}) {
   const { imageInfo, status, reset } = useImageUploaderStore();
   const { handleFileUpload } = useImageUploader();
 
   useEffect(() => {
     if (imageInfo) {
-      setShowOverlay(true);
+      setShowUploadPrompt(true);
     }
   }, [imageInfo]);
 
@@ -92,7 +40,7 @@ function GalleryScan({ gridPlace }: { gridPlace: string }) {
             {
               label: "Deny",
               onClick: () => {
-                setShowOverlay(false);
+                setShowUploadPrompt(false);
                 reset();
               },
             },
@@ -115,6 +63,7 @@ function GalleryScan({ gridPlace }: { gridPlace: string }) {
       gridPlace={gridPlace}
       iconGallery={<GalleryIcon />}
       messageGallery={messageGallery}
+      showUploadPrompt={showUploadPrompt}
     />
   );
 }

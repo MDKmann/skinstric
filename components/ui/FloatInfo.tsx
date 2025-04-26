@@ -27,7 +27,7 @@ function FloatInfo({ message, subInfo, buttons }: FloatInfoProps) {
           {buttons.map((btn, i) => (
             <button
               key={i}
-              className="uppercase cursor-pointer py-2 "
+              className="uppercase cursor-pointer py-2"
               onClick={btn.onClick}
             >
               <span className="px-4 py-2">{btn.label}</span>

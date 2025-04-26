@@ -3,22 +3,29 @@
 import CameraIcon from "./ui/CameraIcon";
 import ImageScanWrapper from "./ImageScanWrapper";
 import FloatInfo from "./ui/FloatInfo";
-import { useState } from "react";
+
 import { useRouter } from "next/navigation";
 
-function CameraScan({ gridPlace }: { gridPlace: string }) {
+function CameraScan({
+  gridPlace,
+  showCameraPrompt,
+  setShowCameraPrompt,
+}: {
+  gridPlace: string;
+  showCameraPrompt: boolean;
+  setShowCameraPrompt: (show: boolean) => void;
+}) {
   const router = useRouter();
-  const [showPrompt, setShowPrompt] = useState(false);
 
-  const message = showPrompt ? (
+  const message = showCameraPrompt ? (
     <FloatInfo
       message={<p>Allow A.I. to access your camera</p>}
       buttons={[
-        { label: "Deny", onClick: () => setShowPrompt(false) },
+        { label: "Deny", onClick: () => setShowCameraPrompt(false) },
         {
           label: "Allow",
           onClick: () => {
-            setShowPrompt(false);
+            setShowCameraPrompt(false);
             console.log("CameraCaptureInput confirmed");
             router.push("/analysis");
             // Trigger further logic (like enabling webcam)
@@ -35,7 +42,8 @@ function CameraScan({ gridPlace }: { gridPlace: string }) {
       gridPlace={gridPlace}
       iconCamera={<CameraIcon />}
       messageCamera={message}
-      triggerCameraPrompt={() => setShowPrompt(true)}
+      triggerCameraPrompt={() => setShowCameraPrompt(true)}
+      showCameraPrompt={showCameraPrompt}
     />
   );
 }
