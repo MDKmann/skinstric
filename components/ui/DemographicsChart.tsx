@@ -10,7 +10,7 @@ function DemographicsChart() {
   const percent = Number(value);
 
   return (
-    <div className="border-t-1 bg-antiflash relative">
+    <div className="border-t-1 bg-antiflash relative ease-smooth">
       <h1 className="pt-4 pl-4 text-[40px] tracking-tighter">
         <span className="capitalize">{label}</span>
         {checkedCategory === "age" ? (
@@ -26,24 +26,23 @@ function DemographicsChart() {
             <span className="text-2xl absolute -top-2 -right-4">%</span>
           </h3>
         </div>
-        <svg width={384} height={384}>
+        <svg width={"40vh"} height={"40vh"} className="-rotate-90">
           <circle
-            cx={192}
-            cy={192}
-            r={184}
+            cx={"20vh"}
+            cy={"20vh"}
+            r={"19.167vh"}
             stroke="#c1c2c3"
             fill="none"
             strokeWidth={6}
           ></circle>
           <circle
-            cx={192}
-            cy={192}
-            r={184}
+            cx={"20vh"}
+            cy={"20vh"}
+            r={"19.167vh"}
             stroke="#000"
             strokeWidth={4}
             strokeDasharray={circumference}
             strokeDashoffset={circumference - (percent / 100) * circumference}
-            transform="rotate(270 192 192)"
             strokeLinecap="round"
             fill="transparent"
           ></circle>

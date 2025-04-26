@@ -1,8 +1,9 @@
+
 import DashboardButtonCube from "@/components/DashboardButtonCube";
-import BackButton from "@/components/ui/BackButton";
 import React from "react";
 
-function analysisPage() {
+async function analysisPage() {
+await new Promise((resolve) => setTimeout(resolve, 3000));
 const demographics = "/analysis/demographics"
 
   return (
@@ -33,9 +34,6 @@ const demographics = "/analysis/demographics"
         <span className="dotted__square--1"></span>
         <span className="dotted__square--2"></span>
       </div>
-      {/* <div className="pl-small left-button absolute bottom-10">
-        <BackButton />
-      </div> */}
     </>
   );
 }

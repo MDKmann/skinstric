@@ -26,7 +26,7 @@ const { currentData, topDataEntry, checkedCategory} = useCheckedDemographics();
               const isTop = label === topDataEntry.label
               return (
                 <div
-                  className={`flex justify-between items-center px-4 py-3 uppercase group hover:bg-platinum ${isTop ? "bg-eerie text-lotion hover:text-eerie" : "text-eerie"}`}
+                  className={`flex justify-between items-center px-4 py-3 uppercase group hover:bg-platinum hover:ease-smooth ease-smooth ${isTop ? "bg-eerie text-lotion hover:text-eerie" : "text-eerie"}`}
                   key={label}
                 >
                   <div className="flex items-center">
@@ -34,7 +34,7 @@ const { currentData, topDataEntry, checkedCategory} = useCheckedDemographics();
                       className={`size-3 transform rotate-45 border-1 ${isTop ? "border-lotion flex place-items-center group-hover:border-eerie" : "border-eerie"}`}
                     >
                       {isTop ? (
-                        <div className="size-1.5 border-1 m-auto border-lotion group-hover:border-eerie"></div>
+                        <div className="size-1.5 border-1 m-auto border-lotion group-hover:border-eerie "></div>
                       ) : (
                         <></>
                       )}

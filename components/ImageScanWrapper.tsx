@@ -4,6 +4,8 @@ import React, { ReactNode } from "react";
 import ImageUploadInput from "./ui/ImageUploadInput";
 import CameraCaptureInput from "./ui/CameraCaptureInput";
 import useImageUploader from "@/app/hooks/useImageUploader";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 interface Props {
   iconCamera?: ReactNode;
@@ -25,6 +27,26 @@ function ImageScanWrapper({
 }: Props) {
     const { imageInfo, handleFileSelect, handleFileUpload, reset } =
       useImageUploader();
+
+  useGSAP(() => {
+    const tl = gsap.timeline({});
+    tl.fromTo(".dotted-square", {
+      transform: "rotate(30deg)",
+    }, {
+      duration: 0.5,
+     transform: "rotate(45deg)",
+      ease: "power1.inOut",
+    });
+
+    tl.fromTo(".dotted__square--2", {
+      transform: "rotate(60deg)",
+    }, {
+      duration: 0.5,
+      transform: "rotate(45deg)",
+      ease: "power1.inOut",
+    });
+  },[]);
+
   return (
     <div className={`relative w-full h-full ${gridPlace}`}>
       <div className="scan__square--container">

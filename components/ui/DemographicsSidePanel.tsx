@@ -22,7 +22,7 @@ function DemographicsSideBar() {
         />
         <label
           htmlFor="demographic-race"
-          className="border-t-1 h-full flex flex-col justify-between items-start uppercase font-semibold tracking-tight cursor-pointer bg-antiflash hover:bg-platinum peer-checked:bg-eerie peer-checked:text-lotion peer-checked:hover:text-eerie"
+          className="border-t-1 h-full flex flex-col justify-between items-start uppercase font-semibold tracking-tight cursor-pointer bg-antiflash hover:bg-platinum peer-checked:bg-eerie peer-checked:text-lotion peer-checked:hover:text-eerie group-hover:ease-smooth ease-smooth"
         >
           <p className="pt-4 pl-4">{data?.race ? getTopKey(data.race) : ""}</p>
           <p className="pb-4 pl-4">Race</p>
@@ -41,7 +41,7 @@ function DemographicsSideBar() {
         />
         <label
           htmlFor="demographic-age"
-          className="border-t-1 h-full flex flex-col justify-between items-start uppercase font-semibold tracking-tight cursor-pointer bg-antiflash hover:bg-platinum  peer-checked:bg-eerie peer-checked:text-lotion peer-checked:hover:text-eerie"
+          className="border-t-1 h-full flex flex-col justify-between items-start uppercase font-semibold tracking-tight cursor-pointer bg-antiflash hover:bg-platinum  peer-checked:bg-eerie peer-checked:text-lotion peer-checked:hover:text-eerie group-hover:ease-smooth ease-smooth"
         >
           <p className="pt-4 pl-4">{data?.age ? getTopKey(data.age) : ""}</p>
           <p className="pb-4 pl-4">Age</p>
@@ -60,7 +60,7 @@ function DemographicsSideBar() {
         />
         <label
           htmlFor="demographic-gender"
-          className="border-t-1 h-full flex flex-col justify-between items-start uppercase font-semibold tracking-tight cursor-pointer bg-antiflash hover:bg-platinum peer-checked:bg-eerie peer-checked:text-lotion peer-checked:hover:text-eerie"
+          className="border-t-1 h-full flex flex-col justify-between items-start uppercase font-semibold tracking-tight cursor-pointer bg-antiflash hover:bg-platinum peer-checked:bg-eerie peer-checked:text-lotion peer-checked:hover:text-eerie group-hover:ease-smooth ease-smooth"
         >
           <p className="pt-4 pl-4">
             {data?.gender ? getTopKey(data.gender) : ""}

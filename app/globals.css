@@ -116,11 +116,15 @@ div#__next > div {
   --spacing-medium: 2.25rem;
 }
 
-@layer components {
-.gridTest {
-   display: inline-grid;
-  grid-template-columns: auto auto
+@utility ease-smooth {
+  transition: all 0.3s ease-in-out;
 }
+
+@layer components {
+  .gridTest {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+  }
 
   .blurred {
     position: absolute;
@@ -134,7 +138,7 @@ div#__next > div {
       circle,
       rgba(255, 255, 255, 0) 0%,
       rgba(255, 255, 255, 0) 20%,
-      rgba(255, 255, 255, .5) 30%,
+      rgba(255, 255, 255, 0.5) 30%,
       rgba(205, 206, 204, 1) 40%,
       rgba(205, 206, 204, 1) 50%,
       rgba(205, 206, 204, 1) 75%,
@@ -155,11 +159,7 @@ div#__next > div {
 
   .index-content {
     /* display: contents; */
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    position: relative;
   }
 
   .page {
@@ -184,7 +184,7 @@ div#__next > div {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100%;
+    /* width: 100%; */
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
@@ -256,18 +256,26 @@ div#__next > div {
     width: inherit;
     position: absolute;
     opacity: 0;
-    transition: all 0.5s ease-in-out;
+    /* transition: all 0.5s ease-in-out; */
+  }
+  .dotted-square::before {
+    transition: all 0.35s ease-in-out;
+  }
+  .dotted-square::after {
+    transition: all 0.7s ease-in-out;
   }
 
-  .left-button:hover ~ .dotted-square::before,
-  .right-button:hover ~ .dotted-square::before {
+  .left-button-trigger:hover ~ .dotted-square::before,
+  .right-button-trigger:hover ~ .dotted-square::before {
     transform: scale(1.13);
     opacity: 0.6;
+    transition: all 0.35s ease-in-out;
   }
-  .left-button:hover ~ .dotted-square::after,
-  .right-button:hover ~ .dotted-square::after {
+  .left-button-trigger:hover ~ .dotted-square::after,
+  .right-button-trigger:hover ~ .dotted-square::after {
     transform: scale(1.27);
     opacity: 0.3;
+    transition: all 0.7s ease-in-out;
   }
 
   .solid-square {
@@ -302,7 +310,7 @@ div#__next > div {
     position: absolute;
     opacity: 0;
   }
-  .left-button:hover .solid-square::after,
+  /* .left-button:hover .solid-square::after,
   .right-button:hover .solid-square::after {
     content: "";
     border: 1px dotted var(--color-quicksilver);
@@ -316,7 +324,9 @@ div#__next > div {
   .left-button:hover {
     transform: translateX(10%);
   }
-  .right-button:hover {
+  .right-button:hover
+
+  .right-button-trigger:hover ~ .right-button {
     transform: translateX(-10%);
   }
 
@@ -327,16 +337,16 @@ div#__next > div {
   .right-button:hover .solid-square::before {
     transform: scale(1.78);
     border: 1px solid var(--color-quicksilver);
-  }
+  } */
 
   .left-button-label,
   .right-button-label {
     margin-inline: 0rem;
   }
-  .left-button:hover .left-button-label,
+  /* .left-button:hover .left-button-label,
   .right-button:hover .right-button-label {
     margin-inline: 2.5rem;
-  }
+  } */
 
   .solid-square::before,
   .solid-square::after,
@@ -402,6 +412,45 @@ div#__next > div {
     flex-shrink: 0;
     height: var(--icon-size);
     width: var(--icon-size);
+  }
+  /* === Button Movement === */
+  .left-button-trigger:hover ~ .left-button {
+    transform: translateX(10%);
+  }
+  .right-button-trigger:hover ~ .right-button {
+    transform: translateX(-10%);
+  }
+
+  /* === Label Animation === */
+  .left-button-trigger:hover ~ .left-button .left-button-label,
+  .right-button-trigger:hover ~ .right-button .right-button-label {
+    margin-inline: 2.5rem;
+  }
+
+  /* === Solid Square Effects === */
+  .left-button-trigger:hover ~ .left-button .solid-square::before,
+  .right-button-trigger:hover ~ .right-button .solid-square::before {
+    transform: scale(1.78);
+    border: 1px solid var(--color-quicksilver);
+  }
+
+  .left-button-trigger:hover ~ .left-button .solid-square::after,
+  .right-button-trigger:hover ~ .right-button .solid-square::after {
+    opacity: 1;
+    transform: scale(1.37);
+  }
+
+  /* === Dotted Square Effects === */
+  .left-button-trigger:hover ~ .dotted-square::before,
+  .right-button-trigger:hover ~ .dotted-square::before {
+    transform: scale(1.13);
+    opacity: 0.6;
+  }
+
+  .left-button-trigger:hover ~ .dotted-square::after,
+  .right-button-trigger:hover ~ .dotted-square::after {
+    transform: scale(1.27);
+    opacity: 0.3;
   }
 
   /* =====  FORM PAGE */
@@ -478,5 +527,84 @@ div#__next > div {
     opacity: 0.3;
   }
 
+  /*==== Analysys Loader */
+
+  .dashboard__square--container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dashboard__square--container .dotted-square,
+  .dashboard__square--container .dotted__square--1,
+  .dashboard__square--container .dotted__square--2 {
+    --size: 21.1vw;
+    pointer-events: none;
+  }
+  .dashboard__square--container .dotted-square {
+    transform: rotate(30deg);
+    animation-name: dottedSqaureAnim;
+    animation-duration: 3000ms;
+    animation-timing-function: ease-in-out;
+  }
+
+  .dashboard__square--container .dotted__square--1 {
+    transform: rotate(45deg) scale(1.23);
+    opacity: 0.6;
+  }
+  .dashboard__square--container .dotted__square--2 {
+    transform: rotate(60deg) scale(1.49);
+    opacity: 0.3;
+    animation-name: dottedSqaureAnim2;
+    animation-duration: 3000ms;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes dottedSqaureAnim {
+    0% {
+      transform: rotate(30deg) scale(1);
+    }
+    100% {
+      transform: rotate(45deg) scale(1);
+    }
+  }
+
+  @keyframes dottedSqaureAnim2 {
+    0% {
+      transform: rotate(60deg) scale(1.49);
+    }
+    100% {
+      transform: rotate(45deg) scale(1.49);
+    }
+  }
+
   /*==== Analysys Dashboard */
+  .form__square--container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form__square--container .dotted-square,
+  .form__square--container .dotted__square--1,
+  .form__square--container .dotted__square--2 {
+    --size: 23.43vw;
+    pointer-events: none;
+  }
+
+  .form__square--container .dotted__square--1 {
+    transform: rotate(45deg) scale(1.13);
+    opacity: 0.6;
+  }
+  .form__square--container .dotted__square--2 {
+    transform: rotate(45deg) scale(1.27);
+    opacity: 0.3;
+  }
 }
