@@ -17,6 +17,11 @@ const PlacesInput: React.FC<PlacesInputProps> = ({
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
+       if (localStorage.getItem("Location_Name")) {
+         setInputValue(localStorage.getItem("Location_Name") || "");
+       }
+
+
     if (!window.google || !window.google.maps) return;
 
     const autocomplete = new google.maps.places.Autocomplete(
@@ -50,7 +55,7 @@ const PlacesInput: React.FC<PlacesInputProps> = ({
   
   return (
     <input
-      className="text-6xl tracking-tightest placeholder:text-eerie focus:placeholder:opacity-40 text-center underline-none decoration-none outline-none border-b border-b-2-eerie w-dotted 
+      className="text-[clamp(2rem,3.125vw,3.7875rem)] tracking-tightest placeholder:text-eerie focus:placeholder:opacity-40 text-center underline-none decoration-none outline-none border-b border-b-2-eerie w-dotted 
       "
       placeholder="Where are you from?"
       ref={inputRef}
@@ -58,6 +63,7 @@ const PlacesInput: React.FC<PlacesInputProps> = ({
       value={inputValue}
       onChange={(e) => setInputValue(e.target.value)}
       onKeyDown={onKeyDown}
+      autoFocus={!localStorage.getItem("Location_Name")}
       required
     />
   );

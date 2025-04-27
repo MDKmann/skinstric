@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { unstable_ViewTransition as ViewTransition } from "react";
 
+
 const roobert = localFont({
   src: [
     {
@@ -37,6 +38,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" className={roobert.className}>
       <body className={`antialiased index-page`}>

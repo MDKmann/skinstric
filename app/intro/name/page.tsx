@@ -1,49 +1,38 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
-
+import React, { useCallback, useEffect, useState, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
-
 import { useSubmitStore } from "@/app/hooks/useSubmitStore";
 import handleEnterKeyDown from "@/components/utils/handleEnterKeyDown";
+import useGlobalEnter from "@/components/utils/useGlobalEnterKey";
 
 function UserNameForm() {
   const router = useRouter();
-  // State to hold the user's name
   const [userName, setUserName] = useState<string>("");
-  // Zustand action to register the current page's submit handler
   const setSubmitHandlerFn = useSubmitStore(
     (state) => state.setSubmitHandlerFn
   );
 
-  const handleUserSubmit = useCallback((): void => {
+  const handleUserSubmit = useCallback(() => {
     if (!userName.trim()) {
       alert("Please enter your name");
       return;
     }
-
-    // Store name for use on the next page
     localStorage.setItem("userName", userName.trim());
-
-    // Navigate to the next form step
     router.push("/intro/location");
   }, [userName, router]);
 
-  /**
-   * Input change handler with proper typing
-   */
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
   };
 
-  /**
-   * Register the submit function in the global Zustand store
-   * so it can be triggered from the footer's "Forward" button.
-   */
   useEffect(() => {
-    console.log("Registering submit handler from UserNameForm");
+    const storedName = localStorage.getItem("userName");
+    if (storedName) setUserName(storedName);
     setSubmitHandlerFn(handleUserSubmit);
   }, [setSubmitHandlerFn, handleUserSubmit]);
+
+  useGlobalEnter(handleUserSubmit, "input[name='userName']");
 
   return (
     <>
@@ -52,24 +41,29 @@ function UserNameForm() {
           To Start Analysis
         </span>
       </div>
+
       <div className="form__square--container w-full h-full">
         <div className="text-center absolute">
-          <form onSubmit={handleUserSubmit}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleUserSubmit();
+            }}
+          >
             <label className="uppercase opacity-40 text-sm text-eerie">
               Click to type
             </label>
             <br />
             <input
-              className=" text-6xl tracking-tightest placeholder:text-eerie focus:placeholder:opacity-40 text-center underline underline-offset-8 decoration-1 outline-none  focus:placeholder:transition-all placeholder:transition-all transition-all"
-              type="text"
+              className="text-[clamp(1rem,3.375vw,3.375rem)] tracking-tightest placeholder:text-eerie focus:placeholder:opacity-40 text-center underline underline-offset-8 decoration-1 outline-none focus:placeholder:transition-all placeholder:transition-all transition-all"
               name="userName"
               placeholder="Introduce Yourself"
-              autoComplete="off"
-              required
+              value={userName}
               onChange={handleInputChange}
-              onKeyDown={handleEnterKeyDown(handleUserSubmit, {
-                ignoreAutocomplete: true,
-              })}
+              onKeyDown={handleEnterKeyDown(handleUserSubmit)}
+              autoComplete="off"
+              autoFocus={!localStorage.getItem("userName")}
+              required
             />
           </form>
         </div>
