@@ -6,9 +6,10 @@ import { submitUserData } from "@/actions/actions";
 import { useRouter } from "next/navigation";
 import PlacesInput from "@/components/ui/PlacesInput";
 import GoogleMapsLoader from "@/components/utils/GoogleMapsLoader";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+// import { useGSAP } from "@gsap/react";
+// import gsap from "gsap";
 import { useSubmitStore } from "@/app/hooks/useSubmitStore";
+import handleEnterKeyDown from "@/components/utils/handleEnterKeyDown";
 
 const UserLocationForm: React.FC = () => {
   const router = useRouter();
@@ -17,9 +18,9 @@ const UserLocationForm: React.FC = () => {
     lat: number;
     lng: number;
   } | null>(null);
+  const [hasSelectedPlace, setHasSelectedPlace] = useState(false);
   const [userName, setUserName] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
-  // Zustand action to register the current page's submit handler
   // Zustand action to register the current page's submit handler
   const setSubmitHandlerFn = useSubmitStore(
     (state) => state.setSubmitHandlerFn
@@ -45,7 +46,7 @@ const UserLocationForm: React.FC = () => {
       alert("Please enter your location");
       return;
     }
-    
+
     (async () => {
       try {
         const response = await submitUserData(userName, userLocation);
@@ -63,25 +64,21 @@ const UserLocationForm: React.FC = () => {
   //   router.push("/intro/scan");
   // },[userName, userLocation,router])
 
- useEffect(() => {
-   const storedUserName = localStorage.getItem("userName");
-   if (!storedUserName) {
-     router.push("/intro/name"); // Redirect if username is missing
-   } else {
-     setUserName(storedUserName);
-   }
-   /**
-    * Register the submit function in the global Zustand store
-    * so it can be triggered from the footer's "Forward" button.
-    */
-   console.log("Registering submit handler from UserLocationForm");
-   setSubmitHandlerFn(handleLocationSubmit);
- }, [setSubmitHandlerFn, handleLocationSubmit,router]);
+  useEffect(() => {
+    const storedUserName = localStorage.getItem("userName");
+    if (!storedUserName) {
+      router.push("/intro/name"); // Redirect if username is missing
+    } else {
+      setUserName(storedUserName);
+    }
+    /**
+     * Register the submit function in the global Zustand store
+     * so it can be triggered from the footer's "Forward" button.
+     */
+    console.log("Registering submit handler from UserLocationForm");
+    setSubmitHandlerFn(handleLocationSubmit);
+  }, [setSubmitHandlerFn, handleLocationSubmit, router]);
 
- 
-
-   
-   
   return (
     <>
       <GoogleMapsLoader onLoad={() => setScriptLoaded(true)} />
@@ -98,12 +95,22 @@ const UserLocationForm: React.FC = () => {
             </label>
             <br />
             {scriptLoaded ? (
-              <PlacesInput
-                setUserLocation={setUserLocation}
-                setCoordinates={setCoordinates}
-              />
+              <>
+                <PlacesInput
+                  setUserLocation={setUserLocation}
+                  setCoordinates={setCoordinates}
+                  setHasSelectedPlace={setHasSelectedPlace}
+                  onKeyDown={handleEnterKeyDown(() => {
+                    if (hasSelectedPlace) {
+                      handleLocationSubmit();
+                    }
+                  })}
+                />
+              </>
             ) : (
-              <p>Loading Google Maps...</p>
+              <p className="text-4xl mt-4 tracking-tightest">
+                Loading Google Maps...
+              </p>
             )}
           </form>
         </div>

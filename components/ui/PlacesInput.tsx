@@ -3,11 +3,15 @@ import React, { useEffect, useState, useRef } from "react";
 interface PlacesInputProps {
   setUserLocation: (location: string) => void;
   setCoordinates: (coordinates: { lat: number; lng: number }) => void;
+  setHasSelectedPlace: (hasSelected: boolean) => void; 
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const PlacesInput: React.FC<PlacesInputProps> = ({
   setUserLocation,
   setCoordinates,
+  setHasSelectedPlace,
+  onKeyDown,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
@@ -29,9 +33,11 @@ const PlacesInput: React.FC<PlacesInputProps> = ({
 
       const lat = place.geometry.location.lat();
       const lng = place.geometry.location.lng();
+
       setInputValue(place.formatted_address);
       setUserLocation(place.formatted_address);
       setCoordinates({ lat, lng });
+      setHasSelectedPlace(true); // Mark that user selected a valid place
 
       // Store location data in local storage
       localStorage.setItem("latitude", lat.toString());
@@ -40,8 +46,8 @@ const PlacesInput: React.FC<PlacesInputProps> = ({
     });
 
     return () => google.maps.event.clearInstanceListeners(autocomplete);
-  }, [setUserLocation, setCoordinates]);
-
+  }, [setUserLocation, setCoordinates, setHasSelectedPlace]);
+  
   return (
     <input
       className="text-6xl tracking-tightest placeholder:text-eerie focus:placeholder:opacity-40 text-center underline-none decoration-none outline-none border-b border-b-2-eerie w-dotted 
@@ -51,6 +57,8 @@ const PlacesInput: React.FC<PlacesInputProps> = ({
       type="text"
       value={inputValue}
       onChange={(e) => setInputValue(e.target.value)}
+      onKeyDown={onKeyDown}
+      required
     />
   );
 };

@@ -11,6 +11,7 @@ import retakeIcon from "../../public/fullRetakeIcon.png";
 import { useImageUploaderStore } from "../hooks/useScanStore";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useSubmitStore } from "../hooks/useSubmitStore";
 
 const WebcamComponent = () => <Webcam />;
 
@@ -26,7 +27,23 @@ function CameraCapturePage() {
   const [imageSrc, setImageSrc] = useState(null);
   const { setStatus, setBase64, reset } = useImageUploaderStore.getState();
 
+  const setSubmitHandlerFn = useSubmitStore(
+    (state) => state.setSubmitHandlerFn
+  );
+  const callSubmitHandlerFn = useSubmitStore((state) => state.callSubmitHandlerFn);
+
+  const flashScreen = () => {
+    const flash = document.getElementById("flash");
+    if (flash) {
+      flash.style.opacity = "1";
+      setTimeout(() => {
+        flash.style.opacity = "0";
+      }, 100); // flash quickly
+    }
+  };
+
   const capture = useCallback(() => {
+     flashScreen();
     const imageSrc =
       webcamRef.current &&
       (webcamRef.current as unknown as Webcam).getScreenshot();
@@ -80,6 +97,29 @@ function CameraCapturePage() {
       });
     }
   }, [timerPanelOpen]);
+
+useEffect(() => {
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Enter" || event.code === "Space") {
+      console.log(`Key pressed: ${event.key}`);
+
+      event.preventDefault();
+
+      if (!imageSrc) {
+        capture();
+        setSubmitHandlerFn(imageSrc)
+      } else {
+        callSubmitHandlerFn(); //  Submit if image already exists
+      }
+    }
+  };
+
+  window.addEventListener("keydown", handleKeyDown);
+
+  return () => {
+    window.removeEventListener("keydown", handleKeyDown);
+  };
+}, [imageSrc, capture]);
 
   return (
     <>
@@ -167,6 +207,10 @@ function CameraCapturePage() {
           </button>
         )}
       </div>
+      <div
+        id="flash"
+        className="absolute top-0 left-0 w-full h-full bg-white opacity-0 pointer-events-none z-50"
+      ></div>
       <div className="blurred z-40"></div>
       <div className="absolute flex justify-center items-center w-full h-full">
         {imageSrc ? (

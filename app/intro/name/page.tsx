@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useSubmitStore } from "@/app/hooks/useSubmitStore";
+import handleEnterKeyDown from "@/components/utils/handleEnterKeyDown";
 
 function UserNameForm() {
   const router = useRouter();
@@ -63,7 +64,12 @@ function UserNameForm() {
               type="text"
               name="userName"
               placeholder="Introduce Yourself"
+              autoComplete="off"
+              required
               onChange={handleInputChange}
+              onKeyDown={handleEnterKeyDown(handleUserSubmit, {
+                ignoreAutocomplete: true,
+              })}
             />
           </form>
         </div>
