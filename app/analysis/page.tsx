@@ -22,9 +22,9 @@ function CameraCapturePage() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   const { setStatus, setBase64, reset } = useImageUploaderStore.getState();
-  const setSubmitHandlerFn = useSubmitStore(
-    (state) => state.setSubmitHandlerFn
-  );
+  // const setSubmitHandlerFn = useSubmitStore(
+  //   (state) => state.setSubmitHandlerFn
+  // );
   const callSubmitHandlerFn = useSubmitStore(
     (state) => state.callSubmitHandlerFn
   );
@@ -148,7 +148,7 @@ function CameraCapturePage() {
     return () => clearInterval(interval);
   }, [faceBox]);
 
-  // ✅ Correct dynamic viewport tracking
+  // Correct dynamic viewport tracking
   useEffect(() => {
     const handleResize = () => {
       setViewport({

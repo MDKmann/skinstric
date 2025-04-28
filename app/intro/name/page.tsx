@@ -9,6 +9,7 @@ import useGlobalEnter from "@/components/utils/useGlobalEnterKey";
 function UserNameForm() {
   const router = useRouter();
   const [userName, setUserName] = useState<string>("");
+  const [shouldAutoFocus, setShouldAutoFocus] = useState(false);
   const setSubmitHandlerFn = useSubmitStore(
     (state) => state.setSubmitHandlerFn
   );
@@ -18,7 +19,9 @@ function UserNameForm() {
       alert("Please enter your name");
       return;
     }
-    localStorage.setItem("userName", userName.trim());
+    if (typeof window !== "undefined") {
+      localStorage.setItem("userName", userName.trim());
+    }
     router.push("/intro/location");
   }, [userName, router]);
 
@@ -27,8 +30,15 @@ function UserNameForm() {
   };
 
   useEffect(() => {
-    const storedName = localStorage.getItem("userName");
-    if (storedName) setUserName(storedName);
+    if (typeof window !== "undefined") {
+      const storedName = localStorage.getItem("userName");
+      if (storedName) {
+        setUserName(storedName);
+        setShouldAutoFocus(false);
+      } else {
+        setShouldAutoFocus(true);
+      }
+    }
     setSubmitHandlerFn(handleUserSubmit);
   }, [setSubmitHandlerFn, handleUserSubmit]);
 
@@ -62,7 +72,7 @@ function UserNameForm() {
               onChange={handleInputChange}
               onKeyDown={handleEnterKeyDown(handleUserSubmit)}
               autoComplete="off"
-              autoFocus={!localStorage.getItem("userName")}
+              autoFocus={shouldAutoFocus}
               required
             />
           </form>
