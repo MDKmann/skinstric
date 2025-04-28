@@ -13,7 +13,8 @@ export default function useGlobalEnter(
         inputSelector
       ) as HTMLInputElement | null;
       const focused = document.activeElement === input;
-      const hasValue = input?.value.trim().length > 0;
+      // const hasValue = input?.value?.trim().length > 0;
+        const hasValue = input?.value?.trim().length ?? 0 > 0;
 
       if (!focused && !hasValue && !keyHandler) {
         keyHandler = (e: KeyboardEvent) => {
@@ -30,7 +31,6 @@ export default function useGlobalEnter(
         keyHandler = null;
       }
     };
-
     document.addEventListener("focusin", setup);
     document.addEventListener("focusout", setup);
     document.addEventListener("input", setup);

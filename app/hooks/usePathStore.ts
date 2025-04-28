@@ -1,12 +1,17 @@
 import { create } from "zustand";
 
-
 interface PathStore {
-  path: string;
-  setPathStore: (path: string) => void;
+  currentPath: string;
+  previousPath: string;
+  setPath: (newPath: string) => void;
 }
 
 export const usePathStore = create<PathStore>((set) => ({
-  path: "/",
-  setPathStore: (path) => set({ path }),
-}))
+  currentPath: "/",
+  previousPath: "/",
+  setPath: (newPath: string) =>
+    set((state) => ({
+      previousPath: state.currentPath, // Save old current as previous
+      currentPath: newPath,
+    })),
+}));

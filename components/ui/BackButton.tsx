@@ -8,10 +8,8 @@ import { useEffect } from "react";
 
 function BackButton() {
   const router = useRouter();
-    const pathname = usePathname();
-    const currentPath = usePathStore((state) => state.path);
-    const setCurrentPath = usePathStore((state) => state.setPathStore);
-
+  const pathname = usePathname();
+  const { previousPath, setPath } = usePathStore();
 
   const handleBack = () => {
     const referrer = document.referrer;
@@ -21,14 +19,15 @@ function BackButton() {
       router.back();
       console.log(`Router Back: ${currentOrigin}`);
     } else {
-      router.push(currentPath); // Fallback page
-      console.log(`Current path: ${currentPath}`);
+      // Use the stored previous page instead
+      router.push(previousPath || "/");
+      console.log(`Fallback to previousPath: ${previousPath}`);
     }
   };
 
   useEffect(() => {
-    setCurrentPath(pathname);
-  }, [pathname, setCurrentPath]);
+    setPath(pathname);
+  }, [pathname, setPath]);
 
   return (
     <button
